@@ -101,128 +101,86 @@ export const ShopPage: React.FC<ShopPageProps> = ({
 
   return (
     <div className="space-y-8 lg:space-y-12 overflow-hidden">
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#E7F6EF] via-subtle-cream-warm to-subtle-cream pt-6 pb-8 lg:pt-8 lg:pb-12">
-        <div className="absolute top-10 right-1/4 w-96 h-96 bg-emerald-300/20 rounded-full blur-3xl pointer-events-none" />
-        <PawDecor className="absolute top-10 left-8 hidden md:block" size={44} opacity={0.15} rotate={-10} color="#006B4F" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
-            <div className="lg:col-span-7 space-y-6 text-left">
-              <RevealOnScroll direction="down" duration={0.4}>
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 border border-emerald-200 shadow-xs">
-                  <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#006B4F]">
-                    PET CARE PRODUCTS IN SAHIWAL
-                  </span>
-                </div>
-              </RevealOnScroll>
-
-              <RevealOnScroll direction="up" duration={0.5} delay={0.05}>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-emerald-950 font-heading tracking-tight leading-[1.1]">
-                  Pet Shop & <br />
-                  <span className="text-[#006B4F]">Essentials</span>
-                </h1>
-              </RevealOnScroll>
-
-              <RevealOnScroll direction="up" duration={0.5} delay={0.1}>
-                <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-xl leading-relaxed">
-                  Quality pet foods, imported accessories, and veterinary-approved therapeutics for a happier, healthier companion. Trusted across Sahiwal.
-                </p>
-              </RevealOnScroll>
-
-              <RevealOnScroll direction="up" duration={0.5} delay={0.15}>
-                <div className="flex flex-wrap items-center gap-4 pt-2">
-                  <button
-                    onClick={() => {
-                      setSelectedCategory('all');
-                      setSelectedPet('all');
-                      setSearchQuery('');
-                      scrollToProducts();
-                    }}
-                    className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#006B4F] hover:bg-[#00523C] text-white font-bold text-base shadow-xl hover:shadow-2xl hover:scale-105 transition-all active:scale-95 cursor-pointer"
-                  >
-                    <ShoppingBag className="w-5 h-5 text-emerald-200" />
-                    <span>Shop Catalog</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-
-                  <a
-                    href={`tel:${clinicInfo.phone}`}
-                    className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white hover:bg-subtle-cream text-[#006B4F] font-bold text-base border-2 border-emerald-600/30 shadow-xs transition-all active:scale-95"
-                  >
-                    <Phone className="w-4 h-4 fill-[#006B4F]" />
-                    <span>{clinicInfo.phone}</span>
-                  </a>
-                </div>
-              </RevealOnScroll>
+      {/* 1. COMPACT SHOP TOP BAR (HERO REMOVED) */}
+      <section className="bg-gradient-to-r from-[#E7F6EF] via-subtle-cream to-[#EAF7F1] pt-6 pb-6 sm:pt-8 sm:pb-8 border-b border-emerald-900/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-emerald-200/80 shadow-2xs mb-2">
+              <PawDecor size={14} opacity={1} color="#006B4F" />
+              <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-widest text-[#006B4F]">
+                VET CLINIC PET STORE & ESSENTIALS
+              </span>
             </div>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#004230] font-heading tracking-tight">
+              Pet Food, Supplements & Accessories
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl">
+              Authentic veterinary-approved pet nutrition, healthcare supplements, and grooming essentials delivered to your doorstep in Sahiwal.
+            </p>
+          </div>
 
-            {/* Right Hero Image */}
-            <div className="lg:col-span-5 relative">
-              <RevealOnScroll direction="left" duration={0.5}>
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white aspect-4/3 sm:aspect-5/4 group">
-                  <img
-                    src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=850&q=80"
-                    alt="Pet supplies shop"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
-                  
-                  <div className="absolute top-4 right-4 bg-white/95 px-4 py-2 rounded-xl shadow-md rotate-3 text-right">
-                    <span className="text-[#006B4F] font-script text-lg font-bold leading-tight block">
-                      Quality Products for Happier Pets ♡
-                    </span>
-                  </div>
-                </div>
-              </RevealOnScroll>
-            </div>
-
+          <div className="flex items-center gap-2.5 shrink-0">
+            <a
+              href={`tel:${clinicInfo.phone}`}
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold border border-slate-200 shadow-2xs transition-all active:scale-95"
+            >
+              <Phone className="w-3.5 h-3.5 text-[#006B4F]" />
+              <span>{clinicInfo.phone}</span>
+            </a>
+            <a
+              href={clinicInfo.whatsapp}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 px-4.5 py-2.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold shadow-xs transition-all active:scale-95"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>Order via WhatsApp</span>
+            </a>
           </div>
         </div>
       </section>
 
       {/* 2. TRUST STRIP */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-2">
         <RevealOnScroll direction="up" duration={0.4}>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white p-5 rounded-2xl border border-emerald-900/10 shadow-sm flex items-center gap-3.5 hover:border-emerald-300 transition-colors">
-              <div className="w-12 h-12 rounded-xl bg-[#EAF7F1] text-[#006B4F] flex items-center justify-center shrink-0">
-                <ShieldCheck className="w-6 h-6" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-emerald-900/10 shadow-xs flex items-center gap-3 hover:border-emerald-300 transition-colors min-w-0">
+              <div className="w-11 h-11 rounded-xl bg-[#EAF7F1] text-[#006B4F] flex items-center justify-center shrink-0">
+                <ShieldCheck className="w-5 h-5" />
               </div>
-              <div className="text-left">
-                <h4 className="text-sm font-bold text-slate-900 font-heading">Vet Recommended</h4>
-                <p className="text-xs text-slate-500">Clinically tested & safe</p>
-              </div>
-            </div>
-
-            <div className="bg-white p-5 rounded-2xl border border-emerald-900/10 shadow-sm flex items-center gap-3.5 hover:border-emerald-300 transition-colors">
-              <div className="w-12 h-12 rounded-xl bg-[#EAF7F1] text-[#006B4F] flex items-center justify-center shrink-0">
-                <Truck className="w-6 h-6" />
-              </div>
-              <div className="text-left">
-                <h4 className="text-sm font-bold text-slate-900 font-heading">Fast Local Delivery</h4>
-                <p className="text-xs text-slate-500">Same-day delivery in Sahiwal</p>
+              <div className="text-left min-w-0 flex-1">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 font-heading truncate">Vet Recommended</h4>
+                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug break-words">Clinically tested & safe</p>
               </div>
             </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-emerald-900/10 shadow-sm flex items-center gap-3.5 hover:border-emerald-300 transition-colors">
-              <div className="w-12 h-12 rounded-xl bg-[#EAF7F1] text-[#006B4F] flex items-center justify-center shrink-0">
-                <Award className="w-6 h-6" />
+            <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-emerald-900/10 shadow-xs flex items-center gap-3 hover:border-emerald-300 transition-colors min-w-0">
+              <div className="w-11 h-11 rounded-xl bg-[#EAF7F1] text-[#006B4F] flex items-center justify-center shrink-0">
+                <Truck className="w-5 h-5" />
               </div>
-              <div className="text-left">
-                <h4 className="text-sm font-bold text-slate-900 font-heading">100% Authentic</h4>
-                <p className="text-xs text-slate-500">Genuine sealed products</p>
+              <div className="text-left min-w-0 flex-1">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 font-heading truncate">Fast Local Delivery</h4>
+                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug break-words">Same-day in Sahiwal</p>
               </div>
             </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-emerald-900/10 shadow-sm flex items-center gap-3.5 hover:border-emerald-300 transition-colors">
-              <div className="w-12 h-12 rounded-xl bg-[#EAF7F1] text-[#006B4F] flex items-center justify-center shrink-0">
-                <MessageCircle className="w-6 h-6" />
+            <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-emerald-900/10 shadow-xs flex items-center gap-3 hover:border-emerald-300 transition-colors min-w-0">
+              <div className="w-11 h-11 rounded-xl bg-[#EAF7F1] text-[#006B4F] flex items-center justify-center shrink-0">
+                <Award className="w-5 h-5" />
               </div>
-              <div className="text-left">
-                <h4 className="text-sm font-bold text-slate-900 font-heading">Expert Advice</h4>
-                <p className="text-xs text-slate-500">Free advice on WhatsApp</p>
+              <div className="text-left min-w-0 flex-1">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 font-heading truncate">100% Authentic</h4>
+                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug break-words">Genuine sealed products</p>
+              </div>
+            </div>
+
+            <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-emerald-900/10 shadow-xs flex items-center gap-3 hover:border-emerald-300 transition-colors min-w-0">
+              <div className="w-11 h-11 rounded-xl bg-[#EAF7F1] text-[#006B4F] flex items-center justify-center shrink-0">
+                <MessageCircle className="w-5 h-5" />
+              </div>
+              <div className="text-left min-w-0 flex-1">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 font-heading truncate">Expert Advice</h4>
+                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug break-words">Doctor support on WhatsApp</p>
               </div>
             </div>
           </div>
@@ -232,14 +190,14 @@ export const ShopPage: React.FC<ShopPageProps> = ({
       {/* 3. SHOP BY CATEGORY */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <RevealOnScroll direction="up" duration={0.4}>
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 sm:mb-6">
             <div className="text-left">
               <div className="flex items-center gap-2 text-[#006B4F]">
                 <PawDecor size={20} opacity={1} color="#006B4F" />
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#004230] font-heading">Shop by Category</h2>
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#004230] font-heading">Shop by Category</h2>
               </div>
-              <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                Explore our full line of pet products, formulated for healthy digestion, vibrant coats, and active play.
+              <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+                Browse our complete catalog tailored for healthy digestion, coat shine, and happy pets.
               </p>
             </div>
 
@@ -247,7 +205,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
             <div className="relative w-full sm:w-80">
               <input
                 type="text"
-                placeholder="Search products (e.g. Royal Canin, leash)..."
+                placeholder="Search products (e.g. Royal Canin, shampoo)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => {
@@ -262,24 +220,24 @@ export const ShopPage: React.FC<ShopPageProps> = ({
           </div>
         </RevealOnScroll>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-3 sm:gap-3.5">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2 sm:gap-3">
           {/* All Categories Option */}
           <button
             type="button"
             onClick={() => handleSelectCategory('all')}
-            className={`p-3.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-between group cursor-pointer ${
+            className={`p-2 sm:p-2.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-between group cursor-pointer w-full min-w-0 overflow-hidden ${
               selectedCategory === 'all' 
-                ? 'border-[#006B4F] bg-[#EAF7F1] shadow-md scale-102 ring-2 ring-[#006B4F]/20' 
-                : 'border-emerald-900/10 bg-white hover:border-emerald-300 hover:shadow-sm'
+                ? 'border-[#006B4F] bg-[#EAF7F1] shadow-md ring-2 ring-[#006B4F]/20' 
+                : 'border-emerald-900/10 bg-white hover:border-emerald-300 hover:shadow-xs'
             }`}
           >
-            <div className="w-16 h-16 rounded-full overflow-hidden mb-2 bg-emerald-50 text-[#006B4F] flex items-center justify-center p-1 group-hover:scale-110 transition-transform duration-300 shadow-2xs border border-emerald-100">
-              <ShoppingBag className="w-7 h-7 text-[#006B4F]" />
+            <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-full overflow-hidden mb-1.5 bg-emerald-50 text-[#006B4F] flex items-center justify-center p-1 group-hover:scale-110 transition-transform duration-300 shadow-2xs border border-emerald-100 shrink-0">
+              <ShoppingBag className="w-5 h-5 text-[#006B4F]" />
             </div>
-            <span className="text-xs font-bold text-slate-800 line-clamp-1 font-heading">All Products</span>
-            <span className="text-[10px] text-slate-400 font-medium">({products.length} items)</span>
-            <span className={`text-[10px] font-bold mt-1 flex items-center ${selectedCategory === 'all' ? 'text-[#006B4F]' : 'text-slate-500'}`}>
-              {selectedCategory === 'all' ? 'Active ✓' : 'View All ➔'}
+            <span className="text-[10px] sm:text-xs font-bold text-slate-800 truncate w-full block font-heading">All Items</span>
+            <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium">({products.length})</span>
+            <span className={`text-[9px] sm:text-[10px] font-bold mt-0.5 flex items-center ${selectedCategory === 'all' ? 'text-[#006B4F]' : 'text-slate-500'}`}>
+              {selectedCategory === 'all' ? 'Active ✓' : 'View ➔'}
             </span>
           </button>
 
@@ -291,18 +249,18 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                 key={c.id}
                 type="button"
                 onClick={() => handleSelectCategory(c.id)}
-                className={`p-3.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-between group cursor-pointer ${
+                className={`p-2 sm:p-2.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-between group cursor-pointer w-full min-w-0 overflow-hidden ${
                   isSelected 
-                    ? 'border-[#006B4F] bg-[#EAF7F1] shadow-md scale-102 ring-2 ring-[#006B4F]/20' 
-                    : 'border-emerald-900/10 bg-white hover:border-emerald-300 hover:shadow-sm'
+                    ? 'border-[#006B4F] bg-[#EAF7F1] shadow-md ring-2 ring-[#006B4F]/20' 
+                    : 'border-emerald-900/10 bg-white hover:border-emerald-300 hover:shadow-xs'
                 }`}
               >
-                <div className="w-16 h-16 rounded-full overflow-hidden mb-2 bg-slate-50 p-1 border border-slate-100">
+                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-full overflow-hidden mb-1.5 bg-slate-50 p-0.5 border border-slate-100 shrink-0">
                   <img src={c.image} alt={c.label} className="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-300" />
                 </div>
-                <span className="text-xs font-bold text-slate-800 line-clamp-1 font-heading">{c.label}</span>
-                <span className="text-[10px] text-slate-400 font-medium">({count} items)</span>
-                <span className={`text-[10px] font-bold mt-1 flex items-center ${isSelected ? 'text-[#006B4F]' : 'text-slate-500'}`}>
+                <span className="text-[10px] sm:text-xs font-bold text-slate-800 truncate w-full block font-heading">{c.label}</span>
+                <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium">({count})</span>
+                <span className={`text-[9px] sm:text-[10px] font-bold mt-0.5 flex items-center ${isSelected ? 'text-[#006B4F]' : 'text-slate-500'}`}>
                   {isSelected ? 'Active ✓' : 'Shop ➔'}
                 </span>
               </button>
@@ -311,74 +269,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
         </div>
       </section>
 
-      {/* 4. PROMOTIONAL BANNERS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <RevealOnScroll direction="right" duration={0.45}>
-            {/* Banner 1: Cats */}
-            <div className="bg-gradient-to-r from-[#D9F2E6] to-[#EAF7F0] p-7 sm:p-9 rounded-3xl border border-emerald-200/80 flex items-center justify-between relative overflow-hidden text-left shadow-sm h-full">
-              <div className="space-y-2 z-10 max-w-xs">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#006B4F] bg-white px-2.5 py-1 rounded-full shadow-2xs">
-                  BEST FOR CATS
-                </span>
-                <h3 className="text-2xl font-extrabold text-emerald-950 font-heading">
-                  Best for Feline Friends
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Wholesome cat kibble, wet pouches, litter supplies, and grooming brushes.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => handleSelectCategory('cat-feed')}
-                  className="mt-2 inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#006B4F] text-white text-xs font-bold hover:bg-[#00543E] transition-all shadow-sm cursor-pointer"
-                >
-                  <span>Shop Cat Supplies</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-
-              <img
-                src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=350&q=80"
-                alt="Cat promo"
-                className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl object-cover border-4 border-white shadow-xl rotate-3 shrink-0"
-              />
-            </div>
-          </RevealOnScroll>
-
-          <RevealOnScroll direction="left" duration={0.45}>
-            {/* Banner 2: Nutrition */}
-            <div className="bg-gradient-to-r from-[#FEF3C7]/70 to-[#FDE68A]/50 p-7 sm:p-9 rounded-3xl border border-amber-300/60 flex items-center justify-between relative overflow-hidden text-left shadow-sm h-full">
-              <div className="space-y-2 z-10 max-w-xs">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-900 bg-white px-2.5 py-1 rounded-full shadow-2xs">
-                  NUTRITION & CARE ESSENTIALS
-                </span>
-                <h3 className="text-2xl font-extrabold text-amber-950 font-heading">
-                  Canine & Wellness Care
-                </h3>
-                <p className="text-xs sm:text-sm text-amber-900/80 leading-relaxed">
-                  Veterinary multivitamins, calcium chews, and premium dog foods for robust energy.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => handleSelectCategory('supplements')}
-                  className="mt-2 inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#006B4F] text-white text-xs font-bold hover:bg-[#00523C] transition-all shadow-sm cursor-pointer"
-                >
-                  <span>Explore Supplements</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-
-              <img
-                src="https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?auto=format&fit=crop&w=350&q=80"
-                alt="Nutrition promo"
-                className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl object-cover border-4 border-white shadow-xl -rotate-3 shrink-0"
-              />
-            </div>
-          </RevealOnScroll>
-        </div>
-      </section>
-
-      {/* 5. FEATURED PRODUCTS (WITH SEARCH, CATEGORY, PET, SORT, GRID/LIST VIEW) */}
+      {/* 4. FEATURED PRODUCTS (DISPLAYED IMMEDIATELY AFTER CATEGORIES) */}
       <section id="products-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-28">
         
         {/* Controls Bar */}
@@ -537,17 +428,17 @@ export const ShopPage: React.FC<ShopPageProps> = ({
             </button>
           </div>
         ) : viewMode === 'grid' ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
             {filtered.map((product) => {
               const isWishlisted = wishlistIds.includes(product.id);
               return (
                 <div
                   key={product.id}
-                  className="bg-white rounded-3xl p-5 border border-emerald-900/10 shadow-xs hover:shadow-2xl hover:border-emerald-300 transition-all duration-300 flex flex-col justify-between group transform hover:-translate-y-1.5"
+                  className="bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-5 border border-emerald-900/10 shadow-xs hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col justify-between group min-w-0 overflow-hidden transform hover:-translate-y-1"
                 >
-                  <div>
+                  <div className="min-w-0">
                     {/* Image Container with Wishlist and Quick View */}
-                    <div className="relative aspect-square rounded-2xl overflow-hidden bg-slate-50 mb-3.5 group/img">
+                    <div className="relative aspect-square rounded-xl sm:rounded-2xl overflow-hidden bg-slate-50 mb-2.5 sm:mb-3.5 group/img">
                       <img
                         src={product.image}
                         alt={product.name}
@@ -558,16 +449,16 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                       {/* Wishlist Button */}
                       <button
                         onClick={() => onToggleWishlist(product.id)}
-                        className="absolute top-2.5 right-2.5 p-2 rounded-full bg-white/95 backdrop-blur-md text-slate-400 hover:text-red-500 shadow-md transition-colors cursor-pointer z-10"
+                        className="absolute top-2 right-2 sm:top-2.5 sm:right-2.5 p-1.5 sm:p-2 rounded-full bg-white/95 backdrop-blur-md text-slate-400 hover:text-red-500 shadow-md transition-colors cursor-pointer z-10"
                         aria-label="Toggle wishlist"
                       >
-                        <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-red-500 text-red-500 scale-110' : ''}`} />
+                        <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isWishlisted ? 'fill-red-500 text-red-500 scale-110' : ''}`} />
                       </button>
 
-                      {/* Floating Quick View button on image hover */}
+                      {/* Floating Quick View button on image hover (desktop only) */}
                       <button
                         onClick={() => openProductDetail(product)}
-                        className="absolute inset-x-3 bottom-2.5 py-2 px-3 rounded-xl bg-white/95 hover:bg-[#006B4F] text-slate-800 hover:text-white text-xs font-bold shadow-md flex items-center justify-center gap-1.5 transition-all opacity-0 group-hover:opacity-100 backdrop-blur-xs cursor-pointer z-10"
+                        className="hidden sm:flex absolute inset-x-3 bottom-2.5 py-2 px-3 rounded-xl bg-white/95 hover:bg-[#006B4F] text-slate-800 hover:text-white text-xs font-bold shadow-md items-center justify-center gap-1.5 transition-all opacity-0 group-hover:opacity-100 backdrop-blur-xs cursor-pointer z-10"
                         aria-label={`Quick view ${product.name}`}
                       >
                         <Eye className="w-3.5 h-3.5" />
@@ -575,7 +466,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                       </button>
 
                       {/* Category Badge */}
-                      <span className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-slate-900/75 text-white text-[10px] font-bold uppercase tracking-wider backdrop-blur-xs">
+                      <span className="absolute top-2 left-2 sm:top-2.5 sm:left-2.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md bg-slate-900/80 text-white text-[9px] sm:text-[10px] font-bold uppercase tracking-wider backdrop-blur-xs max-w-[70%] truncate">
                         {product.category.replace('-', ' ')}
                       </span>
                     </div>
@@ -583,48 +474,48 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                     {/* Clickable Product Title */}
                     <button
                       onClick={() => openProductDetail(product)}
-                      className="text-sm sm:text-base font-bold text-slate-900 font-heading hover:text-[#006B4F] transition-colors line-clamp-2 text-left cursor-pointer w-full"
+                      className="text-xs sm:text-base font-bold text-slate-900 font-heading hover:text-[#006B4F] transition-colors line-clamp-2 text-left cursor-pointer w-full leading-snug break-words"
                     >
                       {product.name}
                     </button>
 
                     {/* Star Rating */}
-                    <div className="flex items-center gap-1.5 mt-2">
+                    <div className="flex items-center gap-1 sm:gap-1.5 mt-1.5 flex-wrap">
                       <div className="flex text-amber-400">
-                        <Star className="w-3.5 h-3.5 fill-amber-400" />
+                        <Star className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-amber-400" />
                       </div>
-                      <span className="text-xs font-bold text-slate-800">{product.rating}</span>
-                      <span className="text-[11px] text-slate-400">({product.reviewCount} reviews)</span>
+                      <span className="text-[11px] sm:text-xs font-bold text-slate-800">{product.rating}</span>
+                      <span className="text-[10px] sm:text-[11px] text-slate-400 truncate">({product.reviewCount})</span>
                     </div>
                   </div>
 
-                  {/* Card Footer: Price & Actions */}
-                  <div className="pt-4 mt-3 border-t border-slate-100 flex items-center justify-between gap-1.5">
-                    <div>
-                      <span className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold block leading-tight">Price</span>
-                      <span className="text-base sm:text-lg font-extrabold text-[#006B4F] font-heading tabular-nums">
+                  {/* Card Footer: Price & Actions - Stacked layout to guarantee zero overflow on mobile */}
+                  <div className="pt-2.5 mt-2 sm:pt-3.5 sm:mt-3 border-t border-slate-100 flex flex-col gap-2 min-w-0">
+                    <div className="flex items-baseline justify-between gap-1">
+                      <span className="text-[9px] sm:text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Price</span>
+                      <span className="text-xs sm:text-base lg:text-lg font-black text-[#006B4F] font-heading tabular-nums truncate">
                         PKR {product.price.toLocaleString()}
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-1.5 w-full">
                       {/* View Details Button */}
                       <button
                         onClick={() => openProductDetail(product)}
                         title="View Product Details"
-                        className="p-2.5 rounded-xl border border-emerald-900/10 hover:border-emerald-300 text-slate-600 hover:text-[#006B4F] hover:bg-emerald-50 transition-colors cursor-pointer"
+                        className="p-1.5 sm:p-2.5 rounded-xl border border-emerald-900/10 hover:border-emerald-300 text-slate-600 hover:text-[#006B4F] hover:bg-emerald-50 transition-colors shrink-0 cursor-pointer"
                         aria-label={`View details of ${product.name}`}
                       >
-                        <Eye className="w-4 h-4" />
+                        <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       </button>
 
                       {/* Add to Cart */}
                       <button
                         onClick={() => onAddToCart(product)}
-                        className="px-3.5 py-2.5 rounded-xl bg-[#006B4F] hover:bg-[#00523C] text-white text-xs font-bold shadow-md hover:shadow-lg flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer"
+                        className="flex-1 min-w-0 py-1.5 sm:py-2.5 px-2 rounded-xl bg-[#006B4F] hover:bg-[#00523C] text-white text-[11px] sm:text-xs font-bold shadow-xs hover:shadow-md flex items-center justify-center gap-1 transition-all active:scale-95 cursor-pointer truncate"
                       >
-                        <ShoppingBag className="w-3.5 h-3.5" />
-                        <span>Add</span>
+                        <ShoppingBag className="w-3.5 h-3.5 shrink-0" />
+                        <span className="truncate">Add</span>
                       </button>
                     </div>
                   </div>
@@ -640,26 +531,26 @@ export const ShopPage: React.FC<ShopPageProps> = ({
               return (
                 <div
                   key={product.id}
-                  className="bg-white rounded-2xl p-5 border border-emerald-900/10 shadow-xs hover:shadow-lg transition-all flex flex-col sm:flex-row items-center justify-between gap-4"
+                  className="bg-white rounded-2xl p-3.5 sm:p-5 border border-emerald-900/10 shadow-xs hover:shadow-md transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 min-w-0"
                 >
-                  <div className="flex items-center gap-4.5 w-full sm:w-auto">
+                  <div className="flex items-center gap-3 sm:gap-4.5 w-full sm:w-auto min-w-0">
                     <img
                       src={product.image}
                       alt={product.name}
                       onClick={() => openProductDetail(product)}
-                      className="w-22 h-22 rounded-xl object-cover shrink-0 cursor-pointer hover:opacity-90 transition-opacity"
+                      className="w-16 h-16 sm:w-22 sm:h-22 rounded-xl object-cover shrink-0 cursor-pointer hover:opacity-90 transition-opacity"
                     />
-                    <div className="text-left">
+                    <div className="text-left min-w-0 flex-1">
                       <span className="text-[10px] font-bold uppercase tracking-wider text-[#006B4F]">
                         {product.category}
                       </span>
                       <button
                         onClick={() => openProductDetail(product)}
-                        className="text-base font-bold text-slate-900 font-heading hover:text-[#006B4F] transition-colors text-left block cursor-pointer"
+                        className="text-sm sm:text-base font-bold text-slate-900 font-heading hover:text-[#006B4F] transition-colors text-left block cursor-pointer line-clamp-1"
                       >
                         {product.name}
                       </button>
-                      <div className="flex items-center gap-1.5 text-xs text-amber-500 mt-1">
+                      <div className="flex items-center gap-1.5 text-xs text-amber-500 mt-0.5">
                         <Star className="w-3.5 h-3.5 fill-amber-400" />
                         <span className="font-bold text-slate-800">{product.rating}</span>
                         <span className="text-slate-400">({product.reviewCount} customer reviews)</span>
@@ -667,30 +558,31 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between w-full sm:w-auto gap-4">
-                    <span className="text-lg font-extrabold text-[#006B4F] font-heading tabular-nums">
+                  <div className="flex flex-wrap items-center justify-between w-full sm:w-auto gap-2.5 sm:gap-4 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                    <span className="text-base sm:text-lg font-extrabold text-[#006B4F] font-heading tabular-nums">
                       PKR {product.price.toLocaleString()}
                     </span>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
                       <button
                         onClick={() => openProductDetail(product)}
-                        className="px-3.5 py-2.5 rounded-xl border border-emerald-200 text-[#006B4F] hover:bg-emerald-50 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+                        className="px-2.5 sm:px-3.5 py-1.5 sm:py-2.5 rounded-xl border border-emerald-200 text-[#006B4F] hover:bg-emerald-50 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
                       >
-                        <Eye className="w-4 h-4" />
-                        <span>View Details</span>
+                        <Eye className="w-3.5 h-3.5" />
+                        <span>Details</span>
                       </button>
                       <button
                         onClick={() => onToggleWishlist(product.id)}
-                        className="p-2.5 rounded-xl border border-slate-200 text-slate-400 hover:text-red-500 cursor-pointer"
+                        className="p-1.5 sm:p-2.5 rounded-xl border border-slate-200 text-slate-400 hover:text-red-500 cursor-pointer"
+                        aria-label="Wishlist"
                       >
-                        <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-red-500 text-red-500' : ''}`} />
+                        <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isWishlisted ? 'fill-red-500 text-red-500' : ''}`} />
                       </button>
                       <button
                         onClick={() => onAddToCart(product)}
-                        className="px-4 py-2.5 rounded-xl bg-[#006B4F] hover:bg-[#00523C] text-white text-xs font-bold flex items-center gap-2 shadow-xs cursor-pointer"
+                        className="px-3 sm:px-4 py-1.5 sm:py-2.5 rounded-xl bg-[#006B4F] hover:bg-[#00523C] text-white text-xs font-bold flex items-center gap-1.5 shadow-xs cursor-pointer"
                       >
-                        <ShoppingBag className="w-4 h-4" />
-                        <span>Add to Cart</span>
+                        <ShoppingBag className="w-3.5 h-3.5" />
+                        <span>Add</span>
                       </button>
                     </div>
                   </div>
@@ -701,17 +593,76 @@ export const ShopPage: React.FC<ShopPageProps> = ({
         )}
       </section>
 
+      {/* 5. PROMOTIONAL BANNERS (DISPLAYED AFTER PRODUCTS) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <RevealOnScroll direction="up" duration={0.4}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            
+            {/* Banner 1: Cat Nutrition */}
+            <div className="relative rounded-3xl overflow-hidden p-6 sm:p-8 bg-gradient-to-r from-emerald-800 to-[#004230] text-white flex flex-col justify-between shadow-md">
+              <div className="relative z-10 max-w-sm space-y-2">
+                <span className="px-3 py-1 rounded-full bg-white/20 text-emerald-100 text-[10px] font-bold uppercase tracking-wider backdrop-blur-xs inline-block">
+                  SPECIAL CLINIC FORMULAS
+                </span>
+                <h3 className="text-xl sm:text-2xl font-black font-heading leading-tight">
+                  Royal Nutrition & Diets for Cats
+                </h3>
+                <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed">
+                  Support your feline’s renal, coat, and urinary tract wellness with clinical nutrition.
+                </p>
+                <div className="pt-2">
+                  <button
+                    onClick={() => handleSelectCategory('cat-feed')}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-[#006B4F] hover:bg-emerald-50 text-xs font-bold shadow-md transition-all active:scale-95 cursor-pointer"
+                  >
+                    <span>Browse Cat Diets</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+              <PawDecor className="absolute right-4 bottom-2 hidden sm:block pointer-events-none" size={120} opacity={0.15} rotate={15} color="#FFFFFF" />
+            </div>
+
+            {/* Banner 2: Supplements & Vitality */}
+            <div className="relative rounded-3xl overflow-hidden p-6 sm:p-8 bg-gradient-to-r from-[#0E8F63] to-emerald-900 text-white flex flex-col justify-between shadow-md">
+              <div className="relative z-10 max-w-sm space-y-2">
+                <span className="px-3 py-1 rounded-full bg-white/20 text-emerald-100 text-[10px] font-bold uppercase tracking-wider backdrop-blur-xs inline-block">
+                  VET-RECOMMENDED
+                </span>
+                <h3 className="text-xl sm:text-2xl font-black font-heading leading-tight">
+                  Supplements & Daily Vitality
+                </h3>
+                <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed">
+                  Calcium syrups, multivitamin drops, and joint support supplements approved by our clinic doctors.
+                </p>
+                <div className="pt-2">
+                  <button
+                    onClick={() => handleSelectCategory('supplements')}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-[#006B4F] hover:bg-emerald-50 text-xs font-bold shadow-md transition-all active:scale-95 cursor-pointer"
+                  >
+                    <span>Explore Supplements</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+              <PawDecor className="absolute right-4 bottom-2 hidden sm:block pointer-events-none" size={120} opacity={0.15} rotate={-20} color="#FFFFFF" />
+            </div>
+
+          </div>
+        </RevealOnScroll>
+      </section>
+
       {/* 6. POPULAR & TOP SELLING CAROUSEL STRIP */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <RevealOnScroll direction="up" duration={0.4}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             
             {/* Popular Cat Products */}
-            <div className="bg-white p-7 rounded-3xl border border-emerald-900/10 shadow-sm space-y-4">
+            <div className="bg-white p-4 sm:p-7 rounded-3xl border border-emerald-900/10 shadow-xs space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <PawDecor size={18} opacity={1} color="#006B4F" />
-                  <h3 className="text-lg font-bold text-slate-900 font-heading">Popular Cat Products</h3>
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 font-heading">Popular Cat Products</h3>
                 </div>
                 <button
                   type="button"
@@ -722,24 +673,27 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                 </button>
               </div>
 
-              <div className="grid grid-cols-2 gap-3.5">
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-3.5">
                 {popularCats.slice(0, 2).map((p: Product) => (
-                  <div key={p.id} className="p-3.5 rounded-2xl border border-slate-100 text-left space-y-2 hover:border-emerald-200 transition-colors">
-                    <img 
-                      src={p.image} 
-                      alt={p.name} 
-                      onClick={() => openProductDetail(p)}
-                      className="w-full aspect-square object-cover rounded-xl cursor-pointer hover:scale-102 transition-transform" 
-                    />
-                    <button 
-                      onClick={() => openProductDetail(p)}
-                      className="text-xs font-bold text-slate-900 line-clamp-1 font-heading hover:text-[#006B4F] text-left cursor-pointer block w-full"
-                    >
-                      {p.name}
-                    </button>
-                    <div className="flex justify-between items-center text-xs">
-                      <span className="font-bold text-[#006B4F]">PKR {p.price.toLocaleString()}</span>
-                      <div className="flex items-center gap-1">
+                  <div key={p.id} className="p-2.5 sm:p-3.5 rounded-2xl border border-slate-100 text-left space-y-1.5 sm:space-y-2 hover:border-emerald-200 transition-colors flex flex-col justify-between">
+                    <div>
+                      <img 
+                        src={p.image} 
+                        alt={p.name} 
+                        onClick={() => openProductDetail(p)}
+                        className="w-full aspect-square object-cover rounded-xl cursor-pointer hover:scale-102 transition-transform mb-1.5" 
+                      />
+                      <button 
+                        onClick={() => openProductDetail(p)}
+                        className="text-xs font-bold text-slate-900 line-clamp-1 font-heading hover:text-[#006B4F] text-left cursor-pointer block w-full truncate"
+                      >
+                        {p.name}
+                      </button>
+                    </div>
+
+                    <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-1.5 text-xs pt-1.5 border-t border-slate-100">
+                      <span className="font-extrabold text-[#006B4F] text-xs sm:text-sm tabular-nums truncate">PKR {p.price.toLocaleString()}</span>
+                      <div className="flex items-center gap-1 shrink-0">
                         <button
                           onClick={() => openProductDetail(p)}
                           title="View Details"
@@ -749,10 +703,11 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                         </button>
                         <button
                           onClick={() => onAddToCart(p)}
-                          className="p-1.5 rounded-lg bg-[#006B4F] text-white hover:bg-[#00543E] transition-colors cursor-pointer"
+                          className="p-1.5 px-2 rounded-lg bg-[#006B4F] text-white hover:bg-[#00523C] transition-colors cursor-pointer flex items-center gap-1 text-[11px] font-bold"
                           aria-label="Add product"
                         >
-                          <ShoppingBag className="w-3.5 h-3.5" />
+                          <ShoppingBag className="w-3 h-3" />
+                          <span className="hidden xs:inline">Add</span>
                         </button>
                       </div>
                     </div>
@@ -762,11 +717,11 @@ export const ShopPage: React.FC<ShopPageProps> = ({
             </div>
 
             {/* Top Selling Products */}
-            <div className="bg-white p-7 rounded-3xl border border-emerald-900/10 shadow-sm space-y-4">
+            <div className="bg-white p-4 sm:p-7 rounded-3xl border border-emerald-900/10 shadow-xs space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Award className="w-5 h-5 text-[#006B4F]" />
-                  <h3 className="text-lg font-bold text-slate-900 font-heading">Top Selling Products</h3>
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 font-heading">Top Selling Products</h3>
                 </div>
                 <button
                   type="button"
@@ -783,24 +738,27 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                 </button>
               </div>
 
-              <div className="grid grid-cols-2 gap-3.5">
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-3.5">
                 {topSellers.slice(0, 2).map((p: Product) => (
-                  <div key={p.id} className="p-3.5 rounded-2xl border border-slate-100 text-left space-y-2 hover:border-emerald-200 transition-colors">
-                    <img 
-                      src={p.image} 
-                      alt={p.name} 
-                      onClick={() => openProductDetail(p)}
-                      className="w-full aspect-square object-cover rounded-xl cursor-pointer hover:scale-102 transition-transform" 
-                    />
-                    <button 
-                      onClick={() => openProductDetail(p)}
-                      className="text-xs font-bold text-slate-900 line-clamp-1 font-heading hover:text-[#006B4F] text-left cursor-pointer block w-full"
-                    >
-                      {p.name}
-                    </button>
-                    <div className="flex justify-between items-center text-xs">
-                      <span className="font-bold text-[#006B4F]">PKR {p.price.toLocaleString()}</span>
-                      <div className="flex items-center gap-1">
+                  <div key={p.id} className="p-2.5 sm:p-3.5 rounded-2xl border border-slate-100 text-left space-y-1.5 sm:space-y-2 hover:border-emerald-200 transition-colors flex flex-col justify-between">
+                    <div>
+                      <img 
+                        src={p.image} 
+                        alt={p.name} 
+                        onClick={() => openProductDetail(p)}
+                        className="w-full aspect-square object-cover rounded-xl cursor-pointer hover:scale-102 transition-transform mb-1.5" 
+                      />
+                      <button 
+                        onClick={() => openProductDetail(p)}
+                        className="text-xs font-bold text-slate-900 line-clamp-1 font-heading hover:text-[#006B4F] text-left cursor-pointer block w-full truncate"
+                      >
+                        {p.name}
+                      </button>
+                    </div>
+
+                    <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-1.5 text-xs pt-1.5 border-t border-slate-100">
+                      <span className="font-extrabold text-[#006B4F] text-xs sm:text-sm tabular-nums truncate">PKR {p.price.toLocaleString()}</span>
+                      <div className="flex items-center gap-1 shrink-0">
                         <button
                           onClick={() => openProductDetail(p)}
                           title="View Details"
@@ -810,10 +768,11 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                         </button>
                         <button
                           onClick={() => onAddToCart(p)}
-                          className="p-1.5 rounded-lg bg-[#006B4F] text-white hover:bg-[#00543E] transition-colors cursor-pointer"
+                          className="p-1.5 px-2 rounded-lg bg-[#006B4F] text-white hover:bg-[#00523C] transition-colors cursor-pointer flex items-center gap-1 text-[11px] font-bold"
                           aria-label="Add product"
                         >
-                          <ShoppingBag className="w-3.5 h-3.5" />
+                          <ShoppingBag className="w-3 h-3" />
+                          <span className="hidden xs:inline">Add</span>
                         </button>
                       </div>
                     </div>

@@ -146,44 +146,44 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
       {/* 2. SERVICE TRUST STRIP */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
         <RevealOnScroll direction="up" duration={0.4}>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white p-5 rounded-2xl border border-emerald-900/10 shadow-sm flex items-center gap-3.5 hover:border-emerald-300 transition-colors">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-emerald-900/10 shadow-sm flex items-center gap-3.5 hover:border-emerald-300 transition-colors min-w-0">
               <div className="w-12 h-12 rounded-xl bg-[#EAF7F1] text-[#006B4F] flex items-center justify-center shrink-0">
                 <ShieldCheck className="w-6 h-6" />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 <h4 className="text-sm font-bold text-emerald-950 font-heading">Trusted Care</h4>
-                <p className="text-xs text-slate-500">Sterile, professional medicine</p>
+                <p className="text-xs text-slate-500 leading-snug break-words">Sterile, professional medicine</p>
               </div>
             </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-emerald-900/10 shadow-sm flex items-center gap-3.5 hover:border-emerald-300 transition-colors">
+            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-emerald-900/10 shadow-sm flex items-center gap-3.5 hover:border-emerald-300 transition-colors min-w-0">
               <div className="w-12 h-12 rounded-xl bg-[#EAF7F1] text-[#006B4F] flex items-center justify-center shrink-0">
                 <Users className="w-6 h-6" />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 <h4 className="text-sm font-bold text-emerald-950 font-heading">Experienced Team</h4>
-                <p className="text-xs text-slate-500">Qualified veterinarians</p>
+                <p className="text-xs text-slate-500 leading-snug break-words">Qualified veterinarians</p>
               </div>
             </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-emerald-900/10 shadow-sm flex items-center gap-3.5 hover:border-emerald-300 transition-colors">
+            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-emerald-900/10 shadow-sm flex items-center gap-3.5 hover:border-emerald-300 transition-colors min-w-0">
               <div className="w-12 h-12 rounded-xl bg-[#EAF7F1] text-[#006B4F] flex items-center justify-center shrink-0">
                 <Sparkles className="w-6 h-6" />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 <h4 className="text-sm font-bold text-emerald-950 font-heading">Modern Facilities</h4>
-                <p className="text-xs text-slate-500">Advanced diagnostic tools</p>
+                <p className="text-xs text-slate-500 leading-snug break-words">Advanced diagnostic tools</p>
               </div>
             </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-emerald-900/10 shadow-sm flex items-center gap-3.5 hover:border-emerald-300 transition-colors">
+            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-emerald-900/10 shadow-sm flex items-center gap-3.5 hover:border-emerald-300 transition-colors min-w-0">
               <div className="w-12 h-12 rounded-xl bg-[#EAF7F1] text-[#006B4F] flex items-center justify-center shrink-0">
                 <Heart className="w-6 h-6 text-[#006B4F]" />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 <h4 className="text-sm font-bold text-emerald-950 font-heading">All Pet Types</h4>
-                <p className="text-xs text-slate-500">Dogs, cats, rabbits & birds</p>
+                <p className="text-xs text-slate-500 leading-snug break-words">Dogs, cats, rabbits & birds</p>
               </div>
             </div>
           </div>
@@ -262,16 +262,16 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
           {steps.map((step, idx) => (
             <RevealOnScroll key={step.num} direction="up" delay={idx * 0.08} duration={0.4}>
               <div
-                className="bg-white p-6 rounded-2xl border border-emerald-900/10 shadow-sm relative text-left space-y-3 hover:border-emerald-300 hover:shadow-md transition-all h-full"
+                className="bg-white p-5 sm:p-6 rounded-2xl border border-emerald-900/10 shadow-sm relative text-left space-y-2.5 sm:space-y-3 hover:border-emerald-300 hover:shadow-md transition-all h-full min-w-0 overflow-hidden"
               >
                 <div className="flex items-center justify-between">
-                  <span className="w-10 h-10 rounded-xl bg-[#006B4F] text-white font-extrabold flex items-center justify-center text-sm font-heading shadow-xs">
+                  <span className="w-10 h-10 rounded-xl bg-[#006B4F] text-white font-extrabold flex items-center justify-center text-sm font-heading shadow-xs shrink-0">
                     {step.num}
                   </span>
-                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
                 </div>
-                <h3 className="text-base font-bold text-emerald-950 font-heading">{step.title}</h3>
-                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">{step.desc}</p>
+                <h3 className="text-sm sm:text-base font-bold text-emerald-950 font-heading break-words">{step.title}</h3>
+                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed break-words">{step.desc}</p>
               </div>
             </RevealOnScroll>
           ))}

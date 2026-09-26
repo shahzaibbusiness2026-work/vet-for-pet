@@ -24,7 +24,7 @@ export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const { clinicInfo } = useSiteData();
-  const { totalCartCount, openCart, openProfileModal } = useApp();
+  const { totalCartCount, openCart } = useApp();
 
   const navLinks = [
     { label: 'Home', href: '/' },
@@ -152,8 +152,8 @@ export const Header: React.FC = () => {
 
             {/* User Profile / Account Button */}
             <Tooltip title="User Account & Recent Purchases">
-              <button
-                onClick={openProfileModal}
+              <Link
+                href="/profile"
                 className="flex items-center gap-1.5 p-2 sm:px-3 sm:py-2 rounded-full text-slate-700 hover:text-[#006B4F] hover:bg-[#EAF7F1] border border-transparent hover:border-emerald-200 transition-all cursor-pointer"
                 aria-label="User Account and Orders"
               >
@@ -163,7 +163,7 @@ export const Header: React.FC = () => {
                 <span className="text-xs font-bold text-slate-700">
                   Profile
                 </span>
-              </button>
+              </Link>
             </Tooltip>
           </div>
 
@@ -231,11 +231,9 @@ export const Header: React.FC = () => {
               <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 pb-0.5">Account & Quick Actions</p>
 
               {/* My Account & Purchases Card */}
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  openProfileModal();
-                }}
+              <Link
+                href="/profile"
+                onClick={() => setMobileMenuOpen(false)}
                 className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-emerald-50/90 to-teal-50/50 hover:bg-emerald-100/60 border border-emerald-200/90 text-left transition-all cursor-pointer shadow-xs active:scale-[0.99]"
               >
                 <div className="flex items-center gap-3">
@@ -255,7 +253,7 @@ export const Header: React.FC = () => {
                 <span className="text-xs font-bold text-white bg-[#006B4F] hover:bg-[#00543E] px-3 py-1.5 rounded-xl shadow-xs shrink-0">
                   Profile
                 </span>
-              </button>
+              </Link>
 
               {/* Shopping Cart Access Card */}
               <button
