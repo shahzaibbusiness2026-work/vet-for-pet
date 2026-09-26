@@ -1,0 +1,6 @@
+{
+  "name": "Vet for Pet Clinic, Sahiwal",
+  "description": "Sahiwal's trusted veterinary clinic providing compassionate pet healthcare, modern surgeries, vaccinations, grooming, pet supplies shop, and dedicated pet care services.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
