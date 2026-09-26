@@ -16,7 +16,7 @@ import {
   CheckCircle2,
   Image as ImageIcon
 } from 'lucide-react';
-import { CLINIC_INFO } from '../data/mockData';
+import { useSiteData } from '../context/SiteDataContext';
 import { PawDecor } from '../components/common/PawDecor';
 import { AppointmentCtaBanner } from '../components/common/AppointmentCtaBanner';
 import { RevealOnScroll } from '../components/common/RevealOnScroll';
@@ -30,6 +30,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
   setCurrentPage,
   openAppointmentModal
 }) => {
+  const { clinicInfo } = useSiteData();
   const milestones = [
     {
       year: "2017",
@@ -67,7 +68,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
   ];
 
   return (
-    <div className="space-y-16 lg:space-y-24 overflow-hidden">
+    <div className="space-y-8 lg:space-y-12 overflow-hidden">
       {/* 1. HERO SECTION */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#E7F6EF] via-subtle-cream-warm to-subtle-cream pt-10 pb-16 lg:pt-16 lg:pb-24">
         <div className="absolute top-10 right-1/4 w-96 h-96 bg-emerald-300/20 rounded-full blur-3xl pointer-events-none" />
@@ -111,11 +112,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({
                   </button>
 
                   <a
-                    href={`tel:${CLINIC_INFO.phone}`}
+                    href={`tel:${clinicInfo.phone}`}
                     className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white hover:bg-emerald-50 text-[#006B4F] font-bold text-base border-2 border-emerald-600/30 shadow-xs transition-all active:scale-95"
                   >
                     <Phone className="w-4 h-4 fill-[#006B4F]" />
-                    <span>{CLINIC_INFO.phone}</span>
+                    <span>{clinicInfo.phone}</span>
                   </a>
                 </div>
               </RevealOnScroll>
@@ -259,7 +260,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
               <div className="space-y-1">
                 <div className="flex items-center justify-center gap-2 text-[#006B4F]">
                   <Users className="w-6 h-6" />
-                  <span className="text-3xl sm:text-4xl lg:text-5xl font-black font-heading tabular-nums text-emerald-950">{CLINIC_INFO.clientsCount}</span>
+                  <span className="text-3xl sm:text-4xl lg:text-5xl font-black font-heading tabular-nums text-emerald-950">{clinicInfo.clientsCount}</span>
                 </div>
                 <h4 className="text-sm sm:text-base font-bold text-emerald-950">Happy Clients</h4>
                 <p className="text-xs text-slate-600">Real families. Cherished companion pets.</p>
@@ -268,7 +269,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
               <div className="space-y-1">
                 <div className="flex items-center justify-center gap-2 text-amber-500">
                   <Sparkles className="w-6 h-6 fill-amber-400" />
-                  <span className="text-3xl sm:text-4xl lg:text-5xl font-black font-heading tabular-nums text-emerald-950">{CLINIC_INFO.rating}</span>
+                  <span className="text-3xl sm:text-4xl lg:text-5xl font-black font-heading tabular-nums text-emerald-950">{clinicInfo.rating}</span>
                 </div>
                 <h4 className="text-sm sm:text-base font-bold text-emerald-950">Clinic Rating</h4>
                 <p className="text-xs text-slate-600">5.0 Star rated on Google Reviews.</p>
@@ -277,7 +278,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
               <div className="space-y-1">
                 <div className="flex items-center justify-center gap-2 text-red-500">
                   <Heart className="w-6 h-6 fill-red-500" />
-                  <span className="text-3xl sm:text-4xl lg:text-5xl font-black font-heading tabular-nums text-emerald-950">{CLINIC_INFO.yearsCount}</span>
+                  <span className="text-3xl sm:text-4xl lg:text-5xl font-black font-heading tabular-nums text-emerald-950">{clinicInfo.yearsCount}</span>
                 </div>
                 <h4 className="text-sm sm:text-base font-bold text-emerald-950">Years of Care</h4>
                 <p className="text-xs text-slate-600">Trusted community service in Sahiwal.</p>

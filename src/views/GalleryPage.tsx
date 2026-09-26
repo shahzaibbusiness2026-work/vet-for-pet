@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { PageType, GalleryItem } from '../types';
 import { 
@@ -9,13 +11,13 @@ import {
   Sparkles,
   Camera
 } from 'lucide-react';
-import { GALLERY_ITEMS, CLINIC_INFO } from '../data/mockData';
 import { PawDecor } from '../components/common/PawDecor';
 import { AppointmentCtaBanner } from '../components/common/AppointmentCtaBanner';
 import { LightboxModal } from '../components/common/LightboxModal';
 import { VideoModal } from '../components/common/VideoModal';
 import { RevealOnScroll } from '../components/common/RevealOnScroll';
 import { motion, AnimatePresence } from 'motion/react';
+import { useSiteData } from '../context/SiteDataContext';
 
 interface GalleryPageProps {
   setCurrentPage: (page: PageType) => void;
@@ -26,6 +28,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
   setCurrentPage,
   openAppointmentModal
 }) => {
+  const { galleryItems, clinicInfo } = useSiteData();
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
   const [likedIds, setLikedIds] = useState<string[]>([]);
@@ -42,8 +45,8 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
   ];
 
   const filteredItems = activeFilter === 'all' 
-    ? GALLERY_ITEMS 
-    : GALLERY_ITEMS.filter(item => item.category === activeFilter);
+    ? galleryItems 
+    : galleryItems.filter(item => item.category === activeFilter);
 
   const handleToggleLike = (id: string) => {
     if (likedIds.includes(id)) {
@@ -78,7 +81,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
   ];
 
   return (
-    <div className="space-y-16 lg:space-y-24 overflow-hidden">
+    <div className="space-y-8 lg:space-y-12 overflow-hidden">
       {/* 1. HERO SECTION */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#E7F6EF] via-subtle-cream-warm to-subtle-cream pt-10 pb-16 lg:pt-16 lg:pb-24">
         <div className="absolute top-10 right-1/4 w-96 h-96 bg-emerald-300/20 rounded-full blur-3xl pointer-events-none" />

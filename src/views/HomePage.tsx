@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { PageType, ServiceItem } from '../types';
 import { 
@@ -24,7 +26,7 @@ import {
   Clock,
   MapPin
 } from 'lucide-react';
-import { CLINIC_INFO, SERVICES, TESTIMONIALS, GALLERY_ITEMS } from '../data/mockData';
+import { useSiteData } from '../context/SiteDataContext';
 import { PawDecor } from '../components/common/PawDecor';
 import { AppointmentCtaBanner } from '../components/common/AppointmentCtaBanner';
 import { RevealOnScroll } from '../components/common/RevealOnScroll';
@@ -41,6 +43,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   openAppointmentModal,
   onSelectService
 }) => {
+  const { clinicInfo, services, testimonials, galleryItems, siteTexts } = useSiteData();
   const [activeTestimonialIdx, setActiveTestimonialIdx] = useState(0);
   const [patientCarouselIdx, setPatientCarouselIdx] = useState(0);
 
@@ -60,13 +63,13 @@ export const HomePage: React.FC<HomePageProps> = ({
     { name: "Snowy", type: "Angora Rabbit", tag: "Routine Visit", image: "https://images.unsplash.com/photo-1589952283406-b53a7d13d368?auto=format&fit=crop&w=450&q=80" },
   ];
 
-  const currentTestimonial = TESTIMONIALS[activeTestimonialIdx];
+  const currentTestimonial = testimonials[activeTestimonialIdx % (testimonials.length || 1)] || testimonials[0];
 
   const handleNextTestimonial = () => {
-    setActiveTestimonialIdx((prev) => (prev + 1) % TESTIMONIALS.length);
+    setActiveTestimonialIdx((prev) => (prev + 1) % (testimonials.length || 1));
   };
   const handlePrevTestimonial = () => {
-    setActiveTestimonialIdx((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+    setActiveTestimonialIdx((prev) => (prev - 1 + testimonials.length) % (testimonials.length || 1));
   };
 
   const handleNextPatients = () => {
@@ -77,7 +80,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   };
 
   return (
-    <div className="space-y-16 lg:space-y-24 overflow-hidden">
+    <div className="space-y-8 lg:space-y-12 overflow-hidden">
       {/* 1. HERO SECTION */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#E7F6EF] via-subtle-cream-warm to-subtle-cream pt-10 pb-16 lg:pt-16 lg:pb-28">
         {/* Ambient background glows */}
@@ -155,11 +158,11 @@ export const HomePage: React.FC<HomePageProps> = ({
                   </button>
 
                   <a
-                    href={`tel:${CLINIC_INFO.phone}`}
+                    href={`tel:${clinicInfo.phone}`}
                     className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-white hover:bg-emerald-50 text-[#006B4F] font-bold text-base border-2 border-emerald-600/30 hover:border-[#006B4F] shadow-sm hover:shadow-md transition-all duration-200 active:scale-95"
                   >
                     <Phone className="w-4 h-4 fill-[#006B4F]" />
-                    <span>{CLINIC_INFO.phone}</span>
+                    <span>{clinicInfo.phone}</span>
                   </a>
                 </div>
               </RevealOnScroll>
@@ -292,7 +295,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <div className="bg-white p-5 rounded-2xl border border-emerald-900/10 shadow-sm text-left hover:border-emerald-300 transition-colors">
                   <div className="flex items-center gap-2 text-[#006B4F] mb-1.5">
                     <Users className="w-5 h-5" />
-                    <span className="text-2xl sm:text-3xl font-black font-heading tabular-nums text-emerald-950">{CLINIC_INFO.clientsCount}</span>
+                    <span className="text-2xl sm:text-3xl font-black font-heading tabular-nums text-emerald-950">{clinicInfo.clientsCount}</span>
                   </div>
                   <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Happy Clients</p>
                 </div>
@@ -300,7 +303,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <div className="bg-white p-5 rounded-2xl border border-emerald-900/10 shadow-sm text-left hover:border-emerald-300 transition-colors">
                   <div className="flex items-center gap-2 text-amber-500 mb-1.5">
                     <Star className="w-5 h-5 fill-amber-400" />
-                    <span className="text-2xl sm:text-3xl font-black font-heading tabular-nums text-emerald-950">{CLINIC_INFO.rating}</span>
+                    <span className="text-2xl sm:text-3xl font-black font-heading tabular-nums text-emerald-950">{clinicInfo.rating}</span>
                   </div>
                   <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Clinic Rating</p>
                 </div>
@@ -308,7 +311,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <div className="bg-white p-5 rounded-2xl border border-emerald-900/10 shadow-sm text-left hover:border-emerald-300 transition-colors">
                   <div className="flex items-center gap-2 text-red-500 mb-1.5">
                     <Heart className="w-5 h-5 fill-red-500" />
-                    <span className="text-2xl sm:text-3xl font-black font-heading tabular-nums text-emerald-950">{CLINIC_INFO.yearsCount}</span>
+                    <span className="text-2xl sm:text-3xl font-black font-heading tabular-nums text-emerald-950">{clinicInfo.yearsCount}</span>
                   </div>
                   <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Trusted Years</p>
                 </div>
@@ -364,7 +367,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       </section>
 
       {/* 4. WHAT WE OFFER / SERVICES SECTION */}
-      <section className="bg-gradient-to-b from-subtle-cream via-white to-subtle-cream-warm py-20 border-y border-emerald-900/10 relative">
+      <section className="bg-gradient-to-b from-subtle-cream via-white to-subtle-cream-warm py-10 border-y border-emerald-900/10 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <RevealOnScroll direction="up" duration={0.4}>
@@ -383,7 +386,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
           {/* 8 Main Services Grid matching reference */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {SERVICES.slice(0, 8).map((service, idx) => (
+            {services.slice(0, 8).map((service, idx) => (
               <RevealOnScroll key={service.id} direction="up" delay={idx * 0.05} duration={0.4}>
                 <div
                   onClick={() => onSelectService(service)}

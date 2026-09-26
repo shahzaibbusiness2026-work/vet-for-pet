@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { PageType } from '../../types';
+import Link from 'next/link';
 import { Logo } from './Logo';
 import { 
   Phone, 
@@ -9,27 +11,19 @@ import {
   Heart,
   ExternalLink
 } from 'lucide-react';
-import { CLINIC_INFO } from '../../data/mockData';
+import { useSiteData } from '../../context/SiteDataContext';
 
-interface FooterProps {
-  setCurrentPage: (page: PageType) => void;
-}
-
-export const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
-  const quickLinks: { label: string; page: PageType }[] = [
-    { label: 'Home', page: 'home' },
-    { label: 'About Us', page: 'about' },
-    { label: 'Services', page: 'services' },
-    { label: 'Our Team', page: 'team' },
-    { label: 'Gallery', page: 'gallery' },
-    { label: 'Contact', page: 'contact' },
-    { label: 'Shop', page: 'shop' },
+export const Footer: React.FC = () => {
+  const { clinicInfo } = useSiteData();
+  const quickLinks = [
+    { label: 'Home', href: '/' },
+    { label: 'About Us', href: '/about' },
+    { label: 'Services', href: '/services' },
+    { label: 'Our Team', href: '/team' },
+    { label: 'Gallery', href: '/gallery' },
+    { label: 'Contact', href: '/contact' },
+    { label: 'Shop', href: '/shop' },
   ];
-
-  const handleNavClick = (page: PageType) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   return (
     <footer className="bg-subtle-cream-50 border-t border-emerald-900/10 pt-16 pb-8 relative overflow-hidden">
@@ -49,7 +43,7 @@ export const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
           
           {/* Column 1: Brand & Socials (4 cols) */}
           <div className="lg:col-span-4 space-y-5">
-            <Logo />
+            <Logo title={clinicInfo.name} subtext={clinicInfo.tagline} />
             <p className="text-slate-600 text-sm leading-relaxed max-w-sm">
               Providing modern, compassionate, and affordable veterinary care in Sahiwal. We treat your beloved pets like family with expert medicine and a gentle touch.
             </p>
@@ -84,7 +78,7 @@ export const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
                 <span className="font-bold text-xs">YT</span>
               </a>
               <a 
-                href={`https://wa.me/${CLINIC_INFO.whatsapp}?text=Hello%20Vet%20for%20Pet%20Clinic`} 
+                href={`https://wa.me/${clinicInfo.whatsapp}?text=Hello%20${encodeURIComponent(clinicInfo.name)}`} 
                 target="_blank" 
                 rel="noreferrer"
                 className="w-9 h-9 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:opacity-90 transition-opacity"
@@ -102,13 +96,13 @@ export const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
             </h4>
             <ul className="space-y-2 text-sm">
               {quickLinks.map((link) => (
-                <li key={link.page}>
-                  <button
-                    onClick={() => handleNavClick(link.page)}
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
                     className="text-slate-600 hover:text-[#006B4F] font-medium transition-colors text-left"
                   >
                     {link.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -122,25 +116,25 @@ export const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
             <ul className="space-y-3.5 text-sm text-slate-600">
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#006B4F] shrink-0 mt-0.5" />
-                <span>{CLINIC_INFO.address}</span>
+                <span>{clinicInfo.address}</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-[#006B4F] shrink-0" />
-                <a href={`tel:${CLINIC_INFO.phone}`} className="font-semibold text-emerald-950 hover:text-[#006B4F]">
-                  {CLINIC_INFO.phone}
+                <a href={`tel:${clinicInfo.phone}`} className="font-semibold text-emerald-950 hover:text-[#006B4F]">
+                  {clinicInfo.phone}
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-[#006B4F] shrink-0" />
-                <a href={`mailto:${CLINIC_INFO.email}`} className="hover:text-[#006B4F]">
-                  {CLINIC_INFO.email}
+                <a href={`mailto:${clinicInfo.email}`} className="hover:text-[#006B4F]">
+                  {clinicInfo.email}
                 </a>
               </li>
               <li className="flex items-start gap-2.5">
                 <Clock className="w-4 h-4 text-[#006B4F] shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-medium text-slate-800">{CLINIC_INFO.hoursWeekday}</p>
-                  <p className="text-xs text-slate-500">{CLINIC_INFO.hoursFriday}</p>
+                  <p className="font-medium text-slate-800">{clinicInfo.hoursWeekday}</p>
+                  <p className="text-xs text-slate-500">{clinicInfo.hoursFriday}</p>
                 </div>
               </li>
             </ul>
@@ -148,8 +142,8 @@ export const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
 
           {/* Column 4: Map Visual Preview (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
-            <div 
-              onClick={() => handleNavClick('contact')}
+            <Link 
+              href="/contact"
               className="group cursor-pointer block rounded-2xl overflow-hidden border border-emerald-900/10 bg-[#F2F6F4] relative shadow-sm hover:shadow-md transition-all"
             >
               {/* Stylized vector map graphic */}
@@ -181,7 +175,7 @@ export const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
                 <span>View Clinic on Map</span>
                 <ExternalLink className="w-3.5 h-3.5" />
               </div>
-            </div>
+            </Link>
             <p className="text-[11px] text-gray-400">
               Convenient parking available on KIPS Road.
             </p>

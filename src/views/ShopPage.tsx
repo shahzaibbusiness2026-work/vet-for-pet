@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { PageType, Product } from '../types';
 import { 
@@ -18,11 +20,11 @@ import {
   Sparkles,
   CheckCircle2
 } from 'lucide-react';
-import { CLINIC_INFO, PRODUCTS } from '../data/mockData';
 import { PawDecor } from '../components/common/PawDecor';
 import { AppointmentCtaBanner } from '../components/common/AppointmentCtaBanner';
 import { RevealOnScroll } from '../components/common/RevealOnScroll';
 import { motion, AnimatePresence } from 'motion/react';
+import { useSiteData } from '../context/SiteDataContext';
 
 interface ShopPageProps {
   setCurrentPage: (page: PageType) => void;
@@ -39,6 +41,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
   wishlistIds,
   onToggleWishlist
 }) => {
+  const { products, clinicInfo } = useSiteData();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedPet, setSelectedPet] = useState<string>('all');
@@ -57,7 +60,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
   ];
 
   // Filtering & Sorting
-  let filtered = PRODUCTS.filter(p => {
+  let filtered = products.filter(p => {
     const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           p.category.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCat = selectedCategory === 'all' || p.category === selectedCategory;
@@ -73,13 +76,13 @@ export const ShopPage: React.FC<ShopPageProps> = ({
     filtered.sort((a, b) => b.rating - a.rating);
   }
 
-  const popularCats = PRODUCTS.filter(p => p.category.includes('cat')).slice(0, 4);
-  const topSellers = PRODUCTS.filter(p => p.isTopSeller).slice(0, 4);
+  const popularCats = products.filter((p: Product) => p.category.includes('cat')).slice(0, 4);
+  const topSellers = products.filter((p: Product) => p.isTopSeller).slice(0, 4);
 
   return (
-    <div className="space-y-16 lg:space-y-24 overflow-hidden">
+    <div className="space-y-8 lg:space-y-12 overflow-hidden">
       {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#E7F6EF] via-subtle-cream-warm to-subtle-cream pt-10 pb-16 lg:pt-14 lg:pb-24">
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#E7F6EF] via-subtle-cream-warm to-subtle-cream pt-6 pb-8 lg:pt-8 lg:pb-12">
         <div className="absolute top-10 right-1/4 w-96 h-96 bg-emerald-300/20 rounded-full blur-3xl pointer-events-none" />
         <PawDecor className="absolute top-10 left-8 hidden md:block" size={44} opacity={0.15} rotate={-10} color="#006B4F" />
 
@@ -123,11 +126,11 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                   </button>
 
                   <a
-                    href={`tel:${CLINIC_INFO.phone}`}
+                    href={`tel:${clinicInfo.phone}`}
                     className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white hover:bg-subtle-cream text-[#006B4F] font-bold text-base border-2 border-emerald-600/30 shadow-xs transition-all active:scale-95"
                   >
                     <Phone className="w-4 h-4 fill-[#006B4F]" />
-                    <span>{CLINIC_INFO.phone}</span>
+                    <span>{clinicInfo.phone}</span>
                   </a>
                 </div>
               </RevealOnScroll>
@@ -404,7 +407,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
 
         {/* Products Grid or List */}
         {filtered.length === 0 ? (
-          <div className="py-16 text-center bg-white rounded-3xl border border-slate-200">
+          <div className="py-8 text-center bg-white rounded-3xl border border-slate-200">
             <ShoppingBag className="w-14 h-14 text-slate-300 mx-auto mb-3" />
             <p className="text-base font-bold text-slate-800 font-heading">No products found matching your search</p>
             <p className="text-xs text-slate-500 mt-1">Try searching for other terms or reset active filters.</p>
@@ -565,7 +568,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
               </div>
 
               <div className="grid grid-cols-2 gap-3.5">
-                {popularCats.slice(0, 2).map((p) => (
+                {popularCats.slice(0, 2).map((p: Product) => (
                   <div key={p.id} className="p-3.5 rounded-2xl border border-slate-100 text-left space-y-2 hover:border-emerald-200 transition-colors">
                     <img src={p.image} alt={p.name} className="w-full aspect-square object-cover rounded-xl" />
                     <p className="text-xs font-bold text-slate-900 line-clamp-1 font-heading">{p.name}</p>
@@ -604,7 +607,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
               </div>
 
               <div className="grid grid-cols-2 gap-3.5">
-                {topSellers.slice(0, 2).map((p) => (
+                {topSellers.slice(0, 2).map((p: Product) => (
                   <div key={p.id} className="p-3.5 rounded-2xl border border-slate-100 text-left space-y-2 hover:border-emerald-200 transition-colors">
                     <img src={p.image} alt={p.name} className="w-full aspect-square object-cover rounded-xl" />
                     <p className="text-xs font-bold text-slate-900 line-clamp-1 font-heading">{p.name}</p>

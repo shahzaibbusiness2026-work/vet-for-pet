@@ -20,6 +20,8 @@ export type AdminTab =
   | 'inventory'
   | 'customers'
   | 'reviews'
+  | 'gallery'
+  | 'content'
   | 'messages'
   | 'analytics'
   | 'settings';
@@ -137,7 +139,8 @@ export interface InventoryItem {
 export interface MessageItem {
   id: string;
   sender: string;
-  senderAvatar: string;
+  senderAvatar?: string;
+  phone?: string;
   message: string;
   time: string;
   unreadCount?: number;

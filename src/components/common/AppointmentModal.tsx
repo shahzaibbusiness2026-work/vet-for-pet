@@ -1,6 +1,8 @@
+'use client';
+
 import React, { useState } from 'react';
 import { X, Calendar, CheckCircle2, Clock, MapPin, Phone } from 'lucide-react';
-import { CLINIC_INFO, SERVICES } from '../../data/mockData';
+import { useSiteData } from '../../context/SiteDataContext';
 import confetti from 'canvas-confetti';
 
 interface AppointmentModalProps {
@@ -14,13 +16,15 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
   onClose,
   preselectedService = ''
 }) => {
+  const { services, clinicInfo, addAppointment } = useSiteData();
+
   const [formData, setFormData] = useState({
     ownerName: '',
     phone: '',
     email: '',
     petName: '',
     petType: 'Dog',
-    service: preselectedService || 'General Checkups',
+    service: preselectedService || (services[0]?.title || 'General Checkups'),
     preferredDate: '',
     preferredTime: 'Morning (10:00 AM – 1:00 PM)',
     notes: ''
@@ -33,6 +37,22 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.ownerName || !formData.phone || !formData.petName) return;
+
+    // Add to live administrative appointments store
+    addAppointment({
+      id: `app-${Date.now()}`,
+      petName: formData.petName,
+      petType: formData.petType,
+      petAvatar: formData.petType.toLowerCase().includes('cat') 
+        ? 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=100&q=80'
+        : 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=100&q=80',
+      owner: formData.ownerName,
+      phone: formData.phone,
+      service: formData.service,
+      vet: 'Dr. Ahmad Raza',
+      dateTime: formData.preferredDate ? `${formData.preferredDate} (${formData.preferredTime.split(' ')[0]})` : 'Today 04:00 PM',
+      status: 'Confirmed'
+    });
 
     try {
       confetti({
@@ -77,7 +97,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white">Book an Appointment</h3>
-                <p className="text-xs text-emerald-100">Vet for Pet Clinic, Sahiwal</p>
+                <p className="text-xs text-emerald-100">{clinicInfo.name}, Sahiwal</p>
               </div>
             </div>
           </div>
@@ -100,11 +120,11 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                   </div>
                   <div className="flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-[#006B4F]" />
-                    <span>House #220, KIPS Road, Fareed Town, Sahiwal</span>
+                    <span>{clinicInfo.address}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Phone className="w-4 h-4 text-[#006B4F]" />
-                    <span>Clinic Helpline: 0329-0220220</span>
+                    <span>Clinic Helpline: {clinicInfo.phone}</span>
                   </div>
                 </div>
                 <p className="text-xs text-gray-500">
@@ -112,7 +132,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                 </p>
                 <button
                   onClick={handleReset}
-                  className="mt-3 px-6 py-2.5 bg-[#006B4F] hover:bg-[#00523C] text-white font-bold text-sm rounded-full"
+                  className="mt-3 px-6 py-2.5 bg-[#006B4F] hover:bg-[#00523C] text-white font-bold text-sm rounded-full cursor-pointer"
                 >
                   Close Window
                 </button>
@@ -192,7 +212,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                       className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-gray-300 bg-white focus:outline-none focus:border-[#006B4F] focus:ring-1 focus:ring-[#006B4F]"
                     >
-                      {SERVICES.map((s) => (
+                      {services.map((s) => (
                         <option key={s.id} value={s.title}>{s.title}</option>
                       ))}
                     </select>

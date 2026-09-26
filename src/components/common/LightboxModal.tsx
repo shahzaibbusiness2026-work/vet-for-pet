@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { GalleryItem } from '../../types';
 import { X, ChevronLeft, ChevronRight, Heart, Share2 } from 'lucide-react';

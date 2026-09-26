@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { PageType, Doctor } from '../types';
 import { 
@@ -17,10 +19,10 @@ import {
   ChevronRight,
   Stethoscope
 } from 'lucide-react';
-import { CLINIC_INFO, DOCTORS, SUPPORT_STAFF, TESTIMONIALS } from '../data/mockData';
 import { PawDecor } from '../components/common/PawDecor';
 import { AppointmentCtaBanner } from '../components/common/AppointmentCtaBanner';
 import { RevealOnScroll } from '../components/common/RevealOnScroll';
+import { useSiteData } from '../context/SiteDataContext';
 
 interface TeamPageProps {
   setCurrentPage: (page: PageType) => void;
@@ -31,6 +33,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({
   setCurrentPage,
   openAppointmentModal
 }) => {
+  const { doctors, supportStaff, testimonials, clinicInfo } = useSiteData();
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
 
   const standards = [
@@ -53,7 +56,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({
   ];
 
   return (
-    <div className="space-y-16 lg:space-y-24 overflow-hidden">
+    <div className="space-y-8 lg:space-y-12 overflow-hidden">
       {/* 1. HERO SECTION */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#E7F6EF] via-subtle-cream-warm to-subtle-cream pt-10 pb-16 lg:pt-16 lg:pb-24">
         <div className="absolute top-10 right-1/4 w-96 h-96 bg-emerald-300/20 rounded-full blur-3xl pointer-events-none" />
@@ -144,7 +147,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({
         </RevealOnScroll>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {DOCTORS.map((doc, idx) => (
+          {doctors.map((doc, idx) => (
             <RevealOnScroll key={doc.id} direction="up" delay={idx * 0.08} duration={0.4}>
               <div
                 className="bg-white rounded-3xl p-6 border border-emerald-900/10 shadow-sm hover:shadow-2xl hover:border-emerald-300 transition-all duration-300 flex flex-col justify-between h-full transform hover:-translate-y-1.5"
@@ -314,7 +317,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({
         </RevealOnScroll>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-          {SUPPORT_STAFF.map((staff, idx) => (
+          {supportStaff.map((staff, idx) => (
             <RevealOnScroll key={staff.id} direction="up" delay={idx * 0.08} duration={0.4}>
               <div className="text-center space-y-2.5 bg-white p-5 rounded-2xl border border-emerald-900/10 shadow-xs hover:border-emerald-200 transition-colors">
                 <div className="relative mx-auto w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-emerald-100 shadow-sm group">
@@ -346,7 +349,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({
         </RevealOnScroll>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {TESTIMONIALS.slice(0, 3).map((t, idx) => (
+          {testimonials.slice(0, 3).map((t, idx) => (
             <RevealOnScroll key={t.id} direction="up" delay={idx * 0.08} duration={0.4}>
               <div
                 className="bg-white p-6 rounded-2xl border border-emerald-900/10 shadow-sm space-y-3.5 flex flex-col justify-between h-full hover:shadow-md transition-shadow"

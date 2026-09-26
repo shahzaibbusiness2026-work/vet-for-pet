@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar, Phone, MessageCircle, ArrowRight } from 'lucide-react';
-import { CLINIC_INFO } from '../../data/mockData';
+import { useSiteData } from '../../context/SiteDataContext';
 import { PawDecor } from './PawDecor';
 import { RevealOnScroll } from './RevealOnScroll';
 
@@ -16,6 +16,7 @@ export const AppointmentCtaBanner: React.FC<AppointmentCtaBannerProps> = ({
   title = "Book an Appointment Today",
   subtitle = "Your pet's health is just a call away. Caring and compassionate veterinary care in Sahiwal.",
 }) => {
+  const { clinicInfo } = useSiteData();
   return (
     <section className="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <RevealOnScroll direction="up" duration={0.5}>
@@ -53,15 +54,15 @@ export const AppointmentCtaBanner: React.FC<AppointmentCtaBannerProps> = ({
             {/* Right Action Buttons */}
             <div className="flex flex-wrap items-center gap-3.5 sm:gap-4 w-full lg:w-auto justify-start lg:justify-end shrink-0">
               <a
-                href={`tel:${CLINIC_INFO.phone}`}
+                href={`tel:${clinicInfo.phone}`}
                 className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-white hover:bg-emerald-50 text-[#006B4F] font-bold text-sm sm:text-base shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 active:scale-95"
               >
                 <Phone className="w-4 h-4 fill-[#006B4F]" />
-                <span>{CLINIC_INFO.phone}</span>
+                <span>{clinicInfo.phone}</span>
               </a>
 
               <a
-                href={`https://wa.me/${CLINIC_INFO.whatsapp}?text=Hello%20Vet%20for%20Pet%20Clinic,%20I%20would%20like%20to%20inquire%20about%20an%20appointment`}
+                href={`https://wa.me/${clinicInfo.whatsapp}?text=Hello%20${encodeURIComponent(clinicInfo.name)},%20I%20would%20like%20to%20inquire%20about%20an%20appointment`}
                 target="_blank"
                 rel="noreferrer"
                 className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#10B981] hover:bg-[#059669] text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 active:scale-95"

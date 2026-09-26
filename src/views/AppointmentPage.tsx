@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { PageType } from '../types';
 import { 
@@ -85,9 +87,9 @@ export const AppointmentPage: React.FC<AppointmentPageProps> = ({ setCurrentPage
   ];
 
   return (
-    <div className="space-y-16 lg:space-y-24 overflow-hidden">
+    <div className="space-y-8 lg:space-y-12 overflow-hidden">
       {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#E7F6EF] via-subtle-cream-warm to-subtle-cream pt-10 pb-16 lg:pt-14 lg:pb-24">
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#E7F6EF] via-subtle-cream-warm to-subtle-cream pt-6 pb-8 lg:pt-8 lg:pb-12">
         <div className="absolute top-10 right-1/4 w-96 h-96 bg-emerald-300/20 rounded-full blur-3xl pointer-events-none" />
         <PawDecor className="absolute top-10 left-8 hidden md:block" size={44} opacity={0.15} rotate={-10} color="#006B4F" />
 

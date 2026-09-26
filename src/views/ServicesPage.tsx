@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { PageType, ServiceItem } from '../types';
 import { 
@@ -16,7 +18,7 @@ import {
   FileText,
   Stethoscope
 } from 'lucide-react';
-import { CLINIC_INFO, SERVICES, FAQS } from '../data/mockData';
+import { useSiteData } from '../context/SiteDataContext';
 import { PawDecor } from '../components/common/PawDecor';
 import { AppointmentCtaBanner } from '../components/common/AppointmentCtaBanner';
 import { RevealOnScroll } from '../components/common/RevealOnScroll';
@@ -33,6 +35,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
   openAppointmentModal,
   onSelectService
 }) => {
+  const { clinicInfo, services, faqs } = useSiteData();
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
 
   const toggleFaq = (index: number) => {
@@ -63,7 +66,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
   ];
 
   return (
-    <div className="space-y-16 lg:space-y-24 overflow-hidden">
+    <div className="space-y-8 lg:space-y-12 overflow-hidden">
       {/* 1. HERO SECTION */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#E7F6EF] via-subtle-cream-warm to-subtle-cream pt-10 pb-16 lg:pt-16 lg:pb-24">
         <div className="absolute top-10 right-1/4 w-96 h-96 bg-emerald-300/20 rounded-full blur-3xl pointer-events-none" />
@@ -106,11 +109,11 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                   </button>
 
                   <a
-                    href={`tel:${CLINIC_INFO.phone}`}
+                    href={`tel:${clinicInfo.phone}`}
                     className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white hover:bg-subtle-cream text-[#006B4F] font-bold text-base border-2 border-emerald-600/30 shadow-xs transition-all active:scale-95"
                   >
                     <Phone className="w-4 h-4 fill-[#006B4F]" />
-                    <span>{CLINIC_INFO.phone}</span>
+                    <span>{clinicInfo.phone}</span>
                   </a>
                 </div>
               </RevealOnScroll>
@@ -204,7 +207,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
         </RevealOnScroll>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {SERVICES.map((service, idx) => (
+          {services.map((service, idx) => (
             <RevealOnScroll key={service.id} direction="up" delay={idx * 0.04} duration={0.4}>
               <div
                 onClick={() => onSelectService(service)}
@@ -351,11 +354,11 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
 
             <div className="flex flex-wrap items-center gap-4 shrink-0">
               <a
-                href={`tel:${CLINIC_INFO.phone}`}
+                href={`tel:${clinicInfo.phone}`}
                 className="inline-flex items-center gap-2.5 px-7 py-4 rounded-full bg-white text-red-600 font-black text-base shadow-xl hover:bg-red-50 hover:scale-105 transition-all"
               >
                 <Phone className="w-5 h-5 fill-red-600" />
-                <span>{CLINIC_INFO.phone}</span>
+                <span>{clinicInfo.phone}</span>
               </a>
               <div className="flex items-center gap-1.5 text-xs font-bold text-white/90">
                 <Clock className="w-4 h-4" />
@@ -380,7 +383,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
         </RevealOnScroll>
 
         <div className="space-y-3.5">
-          {FAQS.map((faq, index) => {
+          {faqs.map((faq, index) => {
             const isOpen = openFaqIdx === index;
             return (
               <div

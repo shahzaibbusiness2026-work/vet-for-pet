@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { PageType } from '../types';
 import { 
@@ -17,12 +19,12 @@ import {
   Heart,
   Users
 } from 'lucide-react';
-import { CLINIC_INFO, FAQS } from '../data/mockData';
 import { PawDecor } from '../components/common/PawDecor';
 import { AppointmentCtaBanner } from '../components/common/AppointmentCtaBanner';
 import { RevealOnScroll } from '../components/common/RevealOnScroll';
 import confetti from 'canvas-confetti';
 import { motion, AnimatePresence } from 'motion/react';
+import { useSiteData } from '../context/SiteDataContext';
 
 interface ContactPageProps {
   setCurrentPage: (page: PageType) => void;
@@ -33,6 +35,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
   setCurrentPage,
   openAppointmentModal
 }) => {
+  const { clinicInfo, faqs, addMessage } = useSiteData();
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -46,6 +49,13 @@ export const ContactPage: React.FC<ContactPageProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.phone || !formData.message) return;
+
+    addMessage({
+      sender: `${formData.name} (${formData.petType})`,
+      phone: formData.phone,
+      email: formData.email,
+      message: formData.message
+    });
 
     try {
       confetti({
@@ -65,7 +75,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
   };
 
   return (
-    <div className="space-y-16 lg:space-y-24 overflow-hidden">
+    <div className="space-y-8 lg:space-y-12 overflow-hidden">
       {/* 1. HERO SECTION */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#E7F6EF] via-subtle-cream-warm to-subtle-cream pt-10 pb-16 lg:pt-16 lg:pb-24">
         <div className="absolute top-10 right-1/4 w-96 h-96 bg-emerald-300/20 rounded-full blur-3xl pointer-events-none" />
@@ -281,7 +291,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                   </div>
                   <div>
                     <span className="text-xs uppercase tracking-wider text-emerald-300 font-bold">Call Us Directly</span>
-                    <p className="text-2xl sm:text-3xl font-black font-heading tracking-tight">{CLINIC_INFO.phone}</p>
+                    <p className="text-2xl sm:text-3xl font-black font-heading tracking-tight">{clinicInfo.phone}</p>
                   </div>
                 </div>
                 <p className="text-xs sm:text-sm text-emerald-100/90 mt-2">
@@ -293,7 +303,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
             {/* Quick Action Buttons */}
             <div className="grid grid-cols-2 gap-3">
               <a
-                href={`https://wa.me/${CLINIC_INFO.whatsapp}?text=Hello%20Vet%20for%20Pet%20Clinic`}
+                href={`https://wa.me/${clinicInfo.whatsapp}?text=Hello%20${encodeURIComponent(clinicInfo.name)}`}
                 target="_blank"
                 rel="noreferrer"
                 className="p-4 bg-[#EAF7F1] hover:bg-[#D5EFE3] border border-emerald-200/80 rounded-2xl flex items-center gap-3 text-xs font-bold text-[#006B4F] transition-all shadow-xs"
@@ -329,7 +339,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                 </div>
                 <div>
                   <p className="font-bold text-slate-900 font-heading text-sm">Clinic Location</p>
-                  <p className="mt-0.5 text-xs text-slate-500">{CLINIC_INFO.address}</p>
+                  <p className="mt-0.5 text-xs text-slate-500">{clinicInfo.address}</p>
                 </div>
               </div>
 
@@ -339,8 +349,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                 </div>
                 <div>
                   <p className="font-bold text-slate-900 font-heading text-sm">Consultation Hours</p>
-                  <p className="mt-0.5 text-xs text-slate-500">{CLINIC_INFO.hoursWeekday}</p>
-                  <p className="text-xs text-slate-500">{CLINIC_INFO.hoursFriday}</p>
+                  <p className="mt-0.5 text-xs text-slate-500">{clinicInfo.hoursWeekday}</p>
+                  <p className="text-xs text-slate-500">{clinicInfo.hoursFriday}</p>
                 </div>
               </div>
 
@@ -350,8 +360,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                 </div>
                 <div>
                   <p className="font-bold text-slate-900 font-heading text-sm">Email Address</p>
-                  <a href={`mailto:${CLINIC_INFO.email}`} className="mt-0.5 text-xs text-[#006B4F] font-semibold hover:underline block">
-                    {CLINIC_INFO.email}
+                  <a href={`mailto:${clinicInfo.email}`} className="mt-0.5 text-xs text-[#006B4F] font-semibold hover:underline block">
+                    {clinicInfo.email}
                   </a>
                 </div>
               </div>
@@ -365,7 +375,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
               <div className="text-xs">
                 <h4 className="font-bold text-rose-950 font-heading text-sm">Critical Emergency Care</h4>
                 <p className="text-rose-700 mt-1 leading-relaxed">
-                  For trauma, breathing difficulty, or toxicity, call our hotline directly at <span className="font-bold text-rose-950">{CLINIC_INFO.phone}</span>.
+                  For trauma, breathing difficulty, or toxicity, call our hotline directly at <span className="font-bold text-rose-950">{clinicInfo.phone}</span>.
                 </p>
               </div>
             </div>
@@ -473,7 +483,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
         </RevealOnScroll>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-          {FAQS.slice(0, 4).map((faq, index) => {
+          {faqs.slice(0, 4).map((faq, index) => {
             const isOpen = openFaqIdx === index;
             return (
               <div
