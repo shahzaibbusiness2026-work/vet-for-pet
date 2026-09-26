@@ -17,8 +17,9 @@
   --color-emerald-600: #0E8F63;
   --color-emerald-500: #10B981;
 
-  --font-heading: 'Outfit', 'Plus Jakarta Sans', sans-serif;
-  --font-script: 'Caveat', cursive;
+  --font-heading: var(--font-heading), 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  --font-sans: var(--font-sans), 'Plus Jakarta Sans', sans-serif;
+  --font-script: var(--font-script), 'Caveat', cursive;
 }
 
 @layer base {
@@ -39,24 +40,25 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   body {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-sans), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     color: #1E293B;
     background-color: #FAF8F5;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, .font-heading {
-    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    font-family: var(--font-heading), 'Outfit', 'Plus Jakarta Sans', sans-serif;
     letter-spacing: -0.025em;
     color: #02231A;
   }
 }
 
 .font-script {
-  font-family: 'Caveat', cursive;
+  font-family: var(--font-script), 'Caveat', cursive;
 }
 
 .balance-text {
@@ -142,3 +144,46 @@
 .animate-pulse-subtle {
   animation: pulseSubtle 3s ease-in-out infinite;
 }
+
+/* Hardware-accelerated Scroll Progress Bar (zero CPU load, runs on compositor thread) */
+@keyframes growScrollProgress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3.5px;
+  background: linear-gradient(90deg, #006B4F 0%, #0E8F63 50%, #34D399 100%);
+  z-index: 9999;
+  transform-origin: 0 50%;
+  pointer-events: none;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress-bar {
+    animation: growScrollProgress auto linear;
+    animation-timeline: scroll(root block);
+  }
+}
+
+/* GPU promotion for smooth scrolling without repaint lag */
+.gpu-layer {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+

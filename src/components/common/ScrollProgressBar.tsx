@@ -1,20 +1,42 @@
 'use client';
 
-import React from 'react';
-import { motion, useScroll, useSpring } from 'motion/react';
+import React, { useEffect, useRef } from 'react';
 
 export const ScrollProgressBar: React.FC = () => {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  const barRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Only register JS listener if native CSS animation-timeline is not supported
+    if (typeof window !== 'undefined' && !window.CSS?.supports?.('animation-timeline', 'scroll()')) {
+      let ticking = false;
+
+      const updateProgress = () => {
+        if (!barRef.current) return;
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+        barRef.current.style.transform = `scaleX(${Math.min(1, Math.max(0, progress))})`;
+        ticking = false;
+      };
+
+      const onScroll = () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateProgress);
+          ticking = true;
+        }
+      };
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      return () => window.removeEventListener('scroll', onScroll);
+    }
+  }, []);
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#006B4F] via-[#0E8F63] to-[#34D399] z-50 origin-left shadow-sm"
-      style={{ scaleX }}
+    <div
+      ref={barRef}
+      id="scroll-progress"
+      aria-hidden="true"
+      className="scroll-progress-bar"
     />
   );
 };
+
