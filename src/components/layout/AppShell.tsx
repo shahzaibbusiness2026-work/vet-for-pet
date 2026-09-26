@@ -9,6 +9,7 @@ import { CartDrawer } from '@/src/components/common/CartDrawer';
 import { AppointmentModal } from '@/src/components/common/AppointmentModal';
 import { ServiceDetailModal } from '@/src/components/common/ServiceDetailModal';
 import { UserProfileModal } from '@/src/components/common/UserProfileModal';
+import { ProductDetailModal } from '@/src/components/common/ProductDetailModal';
 import { Toast } from '@/src/components/common/Toast';
 import { ScrollProgressBar } from '@/src/components/common/ScrollProgressBar';
 import { ScrollToTop } from '@/src/components/common/ScrollToTop';
@@ -20,6 +21,8 @@ function ShellInner({ children }: { children: React.ReactNode }) {
     cartItems,
     isCartOpen,
     setIsCartOpen,
+    openCart,
+    handleAddToCart,
     handleUpdateQuantity,
     handleRemoveFromCart,
     handleClearCart,
@@ -29,6 +32,10 @@ function ShellInner({ children }: { children: React.ReactNode }) {
     openAppointmentModal,
     selectedServiceDetail,
     closeServiceDetail,
+    selectedProductDetail,
+    closeProductDetail,
+    wishlistIds,
+    handleToggleWishlist,
     isProfileModalOpen,
     closeProfileModal,
     toasts,
@@ -95,6 +102,16 @@ function ShellInner({ children }: { children: React.ReactNode }) {
       <UserProfileModal
         isOpen={isProfileModalOpen}
         onClose={closeProfileModal}
+      />
+
+      <ProductDetailModal
+        product={selectedProductDetail}
+        isOpen={Boolean(selectedProductDetail)}
+        onClose={closeProductDetail}
+        onAddToCart={handleAddToCart}
+        onOpenCart={openCart}
+        isWishlisted={selectedProductDetail ? wishlistIds.includes(selectedProductDetail.id) : false}
+        onToggleWishlist={handleToggleWishlist}
       />
 
       <Toast toasts={toasts} onDismiss={handleDismissToast} />

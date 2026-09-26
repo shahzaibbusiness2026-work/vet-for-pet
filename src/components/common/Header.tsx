@@ -189,13 +189,48 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer: Profile & Cart prominently inside burger menu */}
+        {/* Mobile Navigation Drawer: Navigation Links FIRST, Account/Cart/WhatsApp LAST */}
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-emerald-100 bg-white px-4 pt-4 pb-6 shadow-2xl animate-in slide-in-from-top-2 duration-200 max-h-[85vh] overflow-y-auto">
-            {/* Top Dedicated Quick Actions: Cart & Profile inside Burger Menu */}
-            <div className="space-y-2.5 pb-4 mb-3 border-b border-slate-100">
-              
-              {/* 1. Profile / Account Card inside Burger Menu */}
+            {/* 1. Navigation Links (FIRST) */}
+            <div className="flex flex-col space-y-1 pb-4">
+              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 pb-1">Clinic Pages</p>
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-bold text-left transition-colors cursor-pointer ${
+                      isActive 
+                        ? 'bg-[#EAF7F1] text-[#006B4F]' 
+                        : 'text-slate-700 hover:bg-slate-50'
+                    }`}
+                  >
+                    <span>{link.label}</span>
+                    {isActive && <span className="w-2 h-2 rounded-full bg-[#006B4F]"></span>}
+                  </Link>
+                );
+              })}
+
+              <div className="pt-2">
+                <Link
+                  href="/admin"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold cursor-pointer"
+                >
+                  <LayoutDashboard className="w-4 h-4 text-[#006B4F]" />
+                  Admin Management Dashboard
+                </Link>
+              </div>
+            </div>
+
+            {/* 2. My Account, Shopping Cart & WhatsApp Chat (LAST) */}
+            <div className="pt-4 border-t border-slate-100 space-y-2.5">
+              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 pb-0.5">Account & Quick Actions</p>
+
+              {/* My Account & Purchases Card */}
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
@@ -209,7 +244,7 @@ export const Header: React.FC = () => {
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <p className="text-xs font-extrabold text-slate-900 font-heading">My Account & Orders</p>
+                      <p className="text-xs font-extrabold text-slate-900 font-heading">My Account & Purchases</p>
                       <span className="px-1.5 py-0.5 rounded-md bg-[#006B4F] text-white text-[9px] font-bold uppercase tracking-wider">
                         Gold
                       </span>
@@ -222,7 +257,7 @@ export const Header: React.FC = () => {
                 </span>
               </button>
 
-              {/* 2. Cart Access Card inside Burger Menu */}
+              {/* Shopping Cart Access Card */}
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
@@ -262,7 +297,7 @@ export const Header: React.FC = () => {
                 </span>
               </button>
 
-              {/* 3. WhatsApp Quick Inquiries */}
+              {/* WhatsApp Chat & Consultation */}
               <a
                 href={`https://wa.me/${clinicInfo.whatsapp}?text=Hello%20${encodeURIComponent(clinicInfo.name)}`}
                 target="_blank" 
@@ -274,7 +309,7 @@ export const Header: React.FC = () => {
                     <MessageCircle className="w-5 h-5 text-[#25D366]" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-slate-800">WhatsApp Consultation</p>
+                    <p className="text-xs font-bold text-slate-800">WhatsApp Chat</p>
                     <p className="text-[11px] text-slate-500">Fast doctor chat & prescription help</p>
                   </div>
                 </div>
@@ -282,40 +317,6 @@ export const Header: React.FC = () => {
                   Chat
                 </span>
               </a>
-            </div>
-
-            {/* Navigation Links */}
-            <div className="flex flex-col space-y-1">
-              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 pb-1">Clinic Pages</p>
-              {navLinks.map((link) => {
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-bold text-left transition-colors cursor-pointer ${
-                      isActive 
-                        ? 'bg-[#EAF7F1] text-[#006B4F]' 
-                        : 'text-slate-700 hover:bg-slate-50'
-                    }`}
-                  >
-                    <span>{link.label}</span>
-                    {isActive && <span className="w-2 h-2 rounded-full bg-[#006B4F]"></span>}
-                  </Link>
-                );
-              })}
-
-              <div className="pt-3 border-t border-slate-100 space-y-2">
-                <Link
-                  href="/admin"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold cursor-pointer"
-                >
-                  <LayoutDashboard className="w-4 h-4 text-[#006B4F]" />
-                  Admin Management Dashboard
-                </Link>
-              </div>
             </div>
           </div>
         )}

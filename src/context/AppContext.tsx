@@ -33,6 +33,11 @@ interface AppContextType {
   openServiceDetail: (service: ServiceItem) => void;
   closeServiceDetail: () => void;
 
+  selectedProductDetail: Product | null;
+  setSelectedProductDetail: (product: Product | null) => void;
+  openProductDetail: (product: Product) => void;
+  closeProductDetail: () => void;
+
   wishlistIds: string[];
   handleToggleWishlist: (productId: string) => void;
 
@@ -52,6 +57,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [preselectedService, setPreselectedService] = useState('');
   const [selectedServiceDetail, setSelectedServiceDetail] = useState<ServiceItem | null>(null);
+  const [selectedProductDetail, setSelectedProductDetail] = useState<Product | null>(null);
   const [wishlistIds, setWishlistIds] = useState<string[]>(['p1', 'p5']);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
@@ -67,15 +73,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setToasts(prev => prev.filter(t => t.id !== id));
   };
 
-  const handleAddToCart = (product: Product) => {
+  const handleAddToCart = (product: Product, quantity: number = 1) => {
     setCartItems(prev => {
       const existing = prev.find(i => i.product.id === product.id);
       if (existing) {
-        return prev.map(i => i.product.id === product.id ? { ...i, quantity: i.quantity + 1 } : i);
+        return prev.map(i => i.product.id === product.id ? { ...i, quantity: i.quantity + quantity } : i);
       }
-      return [...prev, { product, quantity: 1 }];
+      return [...prev, { product, quantity }];
     });
-    addToast(`Added "${product.name}" to cart!`, 'success');
+    addToast(`Added ${quantity > 1 ? `${quantity}x ` : ''}"${product.name}" to cart!`, 'success');
   };
 
   const handleUpdateQuantity = (productId: string, quantity: number) => {
@@ -130,6 +136,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setSelectedServiceDetail(null);
   };
 
+  const openProductDetail = (product: Product) => {
+    setSelectedProductDetail(product);
+  };
+
+  const closeProductDetail = () => {
+    setSelectedProductDetail(null);
+  };
+
   const totalCartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
@@ -158,6 +172,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setSelectedServiceDetail,
         openServiceDetail,
         closeServiceDetail,
+        selectedProductDetail,
+        setSelectedProductDetail,
+        openProductDetail,
+        closeProductDetail,
         wishlistIds,
         handleToggleWishlist,
         toasts,

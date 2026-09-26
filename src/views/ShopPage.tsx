@@ -18,13 +18,15 @@ import {
   Grid,
   List,
   Sparkles,
-  CheckCircle2
+  CheckCircle2,
+  Eye
 } from 'lucide-react';
 import { PawDecor } from '../components/common/PawDecor';
 import { AppointmentCtaBanner } from '../components/common/AppointmentCtaBanner';
 import { RevealOnScroll } from '../components/common/RevealOnScroll';
 import { motion, AnimatePresence } from 'motion/react';
 import { useSiteData } from '../context/SiteDataContext';
+import { useApp } from '../context/AppContext';
 
 interface ShopPageProps {
   setCurrentPage: (page: PageType) => void;
@@ -42,6 +44,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
   onToggleWishlist
 }) => {
   const { products, clinicInfo } = useSiteData();
+  const { openProductDetail } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedPet, setSelectedPet] = useState<string>('all');
@@ -432,30 +435,47 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                   className="bg-white rounded-3xl p-5 border border-emerald-900/10 shadow-xs hover:shadow-2xl hover:border-emerald-300 transition-all duration-300 flex flex-col justify-between group transform hover:-translate-y-1.5"
                 >
                   <div>
-                    {/* Image Container with Wishlist */}
-                    <div className="relative aspect-square rounded-2xl overflow-hidden bg-slate-50 mb-3.5">
+                    {/* Image Container with Wishlist and Quick View */}
+                    <div className="relative aspect-square rounded-2xl overflow-hidden bg-slate-50 mb-3.5 group/img">
                       <img
                         src={product.image}
                         alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
+                        onClick={() => openProductDetail(product)}
+                        className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out cursor-pointer"
                       />
+                      
+                      {/* Wishlist Button */}
                       <button
                         onClick={() => onToggleWishlist(product.id)}
-                        className="absolute top-2.5 right-2.5 p-2 rounded-full bg-white/95 backdrop-blur-md text-slate-400 hover:text-red-500 shadow-md transition-colors cursor-pointer"
+                        className="absolute top-2.5 right-2.5 p-2 rounded-full bg-white/95 backdrop-blur-md text-slate-400 hover:text-red-500 shadow-md transition-colors cursor-pointer z-10"
                         aria-label="Toggle wishlist"
                       >
                         <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-red-500 text-red-500 scale-110' : ''}`} />
                       </button>
 
-                      {/* Badge */}
-                      <span className="absolute bottom-2.5 left-2.5 px-2.5 py-1 rounded-md bg-slate-900/75 text-white text-[10px] font-bold uppercase tracking-wider backdrop-blur-xs">
+                      {/* Floating Quick View button on image hover */}
+                      <button
+                        onClick={() => openProductDetail(product)}
+                        className="absolute inset-x-3 bottom-2.5 py-2 px-3 rounded-xl bg-white/95 hover:bg-[#006B4F] text-slate-800 hover:text-white text-xs font-bold shadow-md flex items-center justify-center gap-1.5 transition-all opacity-0 group-hover:opacity-100 backdrop-blur-xs cursor-pointer z-10"
+                        aria-label={`Quick view ${product.name}`}
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        <span>Quick View</span>
+                      </button>
+
+                      {/* Category Badge */}
+                      <span className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-slate-900/75 text-white text-[10px] font-bold uppercase tracking-wider backdrop-blur-xs">
                         {product.category.replace('-', ' ')}
                       </span>
                     </div>
 
-                    <h3 className="text-sm sm:text-base font-bold text-slate-900 font-heading group-hover:text-[#006B4F] transition-colors line-clamp-2 text-left">
+                    {/* Clickable Product Title */}
+                    <button
+                      onClick={() => openProductDetail(product)}
+                      className="text-sm sm:text-base font-bold text-slate-900 font-heading hover:text-[#006B4F] transition-colors line-clamp-2 text-left cursor-pointer w-full"
+                    >
                       {product.name}
-                    </h3>
+                    </button>
 
                     {/* Star Rating */}
                     <div className="flex items-center gap-1.5 mt-2">
@@ -467,7 +487,8 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                     </div>
                   </div>
 
-                  <div className="pt-4 mt-3 border-t border-slate-100 flex items-center justify-between">
+                  {/* Card Footer: Price & Actions */}
+                  <div className="pt-4 mt-3 border-t border-slate-100 flex items-center justify-between gap-1.5">
                     <div>
                       <span className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold block leading-tight">Price</span>
                       <span className="text-base sm:text-lg font-extrabold text-[#006B4F] font-heading tabular-nums">
@@ -475,13 +496,26 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                       </span>
                     </div>
 
-                    <button
-                      onClick={() => onAddToCart(product)}
-                      className="px-4 py-2.5 rounded-xl bg-[#006B4F] hover:bg-[#00523C] text-white text-xs font-bold shadow-md hover:shadow-lg flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer"
-                    >
-                      <ShoppingBag className="w-3.5 h-3.5" />
-                      <span>Add</span>
-                    </button>
+                    <div className="flex items-center gap-1.5">
+                      {/* View Details Button */}
+                      <button
+                        onClick={() => openProductDetail(product)}
+                        title="View Product Details"
+                        className="p-2.5 rounded-xl border border-emerald-900/10 hover:border-emerald-300 text-slate-600 hover:text-[#006B4F] hover:bg-emerald-50 transition-colors cursor-pointer"
+                        aria-label={`View details of ${product.name}`}
+                      >
+                        <Eye className="w-4 h-4" />
+                      </button>
+
+                      {/* Add to Cart */}
+                      <button
+                        onClick={() => onAddToCart(product)}
+                        className="px-3.5 py-2.5 rounded-xl bg-[#006B4F] hover:bg-[#00523C] text-white text-xs font-bold shadow-md hover:shadow-lg flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer"
+                      >
+                        <ShoppingBag className="w-3.5 h-3.5" />
+                        <span>Add</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               );
@@ -501,13 +535,19 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="w-22 h-22 rounded-xl object-cover shrink-0"
+                      onClick={() => openProductDetail(product)}
+                      className="w-22 h-22 rounded-xl object-cover shrink-0 cursor-pointer hover:opacity-90 transition-opacity"
                     />
                     <div className="text-left">
                       <span className="text-[10px] font-bold uppercase tracking-wider text-[#006B4F]">
                         {product.category}
                       </span>
-                      <h4 className="text-base font-bold text-slate-900 font-heading">{product.name}</h4>
+                      <button
+                        onClick={() => openProductDetail(product)}
+                        className="text-base font-bold text-slate-900 font-heading hover:text-[#006B4F] transition-colors text-left block cursor-pointer"
+                      >
+                        {product.name}
+                      </button>
                       <div className="flex items-center gap-1.5 text-xs text-amber-500 mt-1">
                         <Star className="w-3.5 h-3.5 fill-amber-400" />
                         <span className="font-bold text-slate-800">{product.rating}</span>
@@ -516,11 +556,18 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between w-full sm:w-auto gap-5">
+                  <div className="flex items-center justify-between w-full sm:w-auto gap-4">
                     <span className="text-lg font-extrabold text-[#006B4F] font-heading tabular-nums">
                       PKR {product.price.toLocaleString()}
                     </span>
                     <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => openProductDetail(product)}
+                        className="px-3.5 py-2.5 rounded-xl border border-emerald-200 text-[#006B4F] hover:bg-emerald-50 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+                      >
+                        <Eye className="w-4 h-4" />
+                        <span>View Details</span>
+                      </button>
                       <button
                         onClick={() => onToggleWishlist(product.id)}
                         className="p-2.5 rounded-xl border border-slate-200 text-slate-400 hover:text-red-500 cursor-pointer"
@@ -529,7 +576,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                       </button>
                       <button
                         onClick={() => onAddToCart(product)}
-                        className="px-5 py-2.5 rounded-xl bg-[#006B4F] hover:bg-[#00543E] text-white text-xs font-bold flex items-center gap-2 shadow-xs cursor-pointer"
+                        className="px-4 py-2.5 rounded-xl bg-[#006B4F] hover:bg-[#00523C] text-white text-xs font-bold flex items-center gap-2 shadow-xs cursor-pointer"
                       >
                         <ShoppingBag className="w-4 h-4" />
                         <span>Add to Cart</span>
@@ -570,17 +617,36 @@ export const ShopPage: React.FC<ShopPageProps> = ({
               <div className="grid grid-cols-2 gap-3.5">
                 {popularCats.slice(0, 2).map((p: Product) => (
                   <div key={p.id} className="p-3.5 rounded-2xl border border-slate-100 text-left space-y-2 hover:border-emerald-200 transition-colors">
-                    <img src={p.image} alt={p.name} className="w-full aspect-square object-cover rounded-xl" />
-                    <p className="text-xs font-bold text-slate-900 line-clamp-1 font-heading">{p.name}</p>
+                    <img 
+                      src={p.image} 
+                      alt={p.name} 
+                      onClick={() => openProductDetail(p)}
+                      className="w-full aspect-square object-cover rounded-xl cursor-pointer hover:scale-102 transition-transform" 
+                    />
+                    <button 
+                      onClick={() => openProductDetail(p)}
+                      className="text-xs font-bold text-slate-900 line-clamp-1 font-heading hover:text-[#006B4F] text-left cursor-pointer block w-full"
+                    >
+                      {p.name}
+                    </button>
                     <div className="flex justify-between items-center text-xs">
                       <span className="font-bold text-[#006B4F]">PKR {p.price.toLocaleString()}</span>
-                      <button
-                        onClick={() => onAddToCart(p)}
-                        className="p-1.5 rounded-lg bg-[#006B4F] text-white hover:bg-[#00543E] transition-colors cursor-pointer"
-                        aria-label="Add product"
-                      >
-                        <ShoppingBag className="w-3.5 h-3.5" />
-                      </button>
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => openProductDetail(p)}
+                          title="View Details"
+                          className="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:text-[#006B4F] hover:bg-emerald-50 transition-colors cursor-pointer"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => onAddToCart(p)}
+                          className="p-1.5 rounded-lg bg-[#006B4F] text-white hover:bg-[#00543E] transition-colors cursor-pointer"
+                          aria-label="Add product"
+                        >
+                          <ShoppingBag className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -609,17 +675,36 @@ export const ShopPage: React.FC<ShopPageProps> = ({
               <div className="grid grid-cols-2 gap-3.5">
                 {topSellers.slice(0, 2).map((p: Product) => (
                   <div key={p.id} className="p-3.5 rounded-2xl border border-slate-100 text-left space-y-2 hover:border-emerald-200 transition-colors">
-                    <img src={p.image} alt={p.name} className="w-full aspect-square object-cover rounded-xl" />
-                    <p className="text-xs font-bold text-slate-900 line-clamp-1 font-heading">{p.name}</p>
+                    <img 
+                      src={p.image} 
+                      alt={p.name} 
+                      onClick={() => openProductDetail(p)}
+                      className="w-full aspect-square object-cover rounded-xl cursor-pointer hover:scale-102 transition-transform" 
+                    />
+                    <button 
+                      onClick={() => openProductDetail(p)}
+                      className="text-xs font-bold text-slate-900 line-clamp-1 font-heading hover:text-[#006B4F] text-left cursor-pointer block w-full"
+                    >
+                      {p.name}
+                    </button>
                     <div className="flex justify-between items-center text-xs">
                       <span className="font-bold text-[#006B4F]">PKR {p.price.toLocaleString()}</span>
-                      <button
-                        onClick={() => onAddToCart(p)}
-                        className="p-1.5 rounded-lg bg-[#006B4F] text-white hover:bg-[#00543E] transition-colors cursor-pointer"
-                        aria-label="Add product"
-                      >
-                        <ShoppingBag className="w-3.5 h-3.5" />
-                      </button>
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => openProductDetail(p)}
+                          title="View Details"
+                          className="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:text-[#006B4F] hover:bg-emerald-50 transition-colors cursor-pointer"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => onAddToCart(p)}
+                          className="p-1.5 rounded-lg bg-[#006B4F] text-white hover:bg-[#00543E] transition-colors cursor-pointer"
+                          aria-label="Add product"
+                        >
+                          <ShoppingBag className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
