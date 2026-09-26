@@ -62,10 +62,27 @@ export const ShopPage: React.FC<ShopPageProps> = ({
     { id: 'bowls', label: 'Bowls & Feeders', image: 'https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?auto=format&fit=crop&w=200&q=80' },
   ];
 
+  const scrollToProducts = () => {
+    requestAnimationFrame(() => {
+      const el = document.getElementById('products-section');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  };
+
+  const handleSelectCategory = (catId: string) => {
+    setSelectedCategory(catId);
+    setSearchQuery(''); // Clear any conflicting search so all category products are shown
+    setSelectedPet('all'); // Clear pet filter so no category products are hidden
+    scrollToProducts();
+  };
+
   // Filtering & Sorting
   let filtered = products.filter(p => {
-    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          p.category.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = searchQuery.trim() === '' || 
+                          p.name.toLowerCase().includes(searchQuery.toLowerCase().trim()) || 
+                          p.category.toLowerCase().includes(searchQuery.toLowerCase().trim());
     const matchesCat = selectedCategory === 'all' || p.category === selectedCategory;
     const matchesPet = selectedPet === 'all' || p.petType === selectedPet || p.petType === 'all';
     return matchesSearch && matchesCat && matchesPet;
@@ -118,8 +135,10 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                 <div className="flex flex-wrap items-center gap-4 pt-2">
                   <button
                     onClick={() => {
-                      const el = document.getElementById('products-section');
-                      el?.scrollIntoView({ behavior: 'smooth' });
+                      setSelectedCategory('all');
+                      setSelectedPet('all');
+                      setSearchQuery('');
+                      scrollToProducts();
                     }}
                     className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#006B4F] hover:bg-[#00523C] text-white font-bold text-base shadow-xl hover:shadow-2xl hover:scale-105 transition-all active:scale-95 cursor-pointer"
                   >
@@ -231,6 +250,11 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                 placeholder="Search products (e.g. Royal Canin, leash)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    scrollToProducts();
+                  }
+                }}
                 className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#006B4F] focus:ring-2 focus:ring-[#006B4F]/15 bg-white shadow-xs"
               />
               <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -238,25 +262,48 @@ export const ShopPage: React.FC<ShopPageProps> = ({
           </div>
         </RevealOnScroll>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3.5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-3 sm:gap-3.5">
+          {/* All Categories Option */}
+          <button
+            type="button"
+            onClick={() => handleSelectCategory('all')}
+            className={`p-3.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-between group cursor-pointer ${
+              selectedCategory === 'all' 
+                ? 'border-[#006B4F] bg-[#EAF7F1] shadow-md scale-102 ring-2 ring-[#006B4F]/20' 
+                : 'border-emerald-900/10 bg-white hover:border-emerald-300 hover:shadow-sm'
+            }`}
+          >
+            <div className="w-16 h-16 rounded-full overflow-hidden mb-2 bg-emerald-50 text-[#006B4F] flex items-center justify-center p-1 group-hover:scale-110 transition-transform duration-300 shadow-2xs border border-emerald-100">
+              <ShoppingBag className="w-7 h-7 text-[#006B4F]" />
+            </div>
+            <span className="text-xs font-bold text-slate-800 line-clamp-1 font-heading">All Products</span>
+            <span className="text-[10px] text-slate-400 font-medium">({products.length} items)</span>
+            <span className={`text-[10px] font-bold mt-1 flex items-center ${selectedCategory === 'all' ? 'text-[#006B4F]' : 'text-slate-500'}`}>
+              {selectedCategory === 'all' ? 'Active ✓' : 'View All ➔'}
+            </span>
+          </button>
+
           {categories.map((c) => {
             const isSelected = selectedCategory === c.id;
+            const count = products.filter(p => p.category === c.id).length;
             return (
               <button
                 key={c.id}
-                onClick={() => setSelectedCategory(isSelected ? 'all' : c.id)}
+                type="button"
+                onClick={() => handleSelectCategory(c.id)}
                 className={`p-3.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-between group cursor-pointer ${
                   isSelected 
-                    ? 'border-[#006B4F] bg-[#EAF7F1] shadow-md scale-102' 
+                    ? 'border-[#006B4F] bg-[#EAF7F1] shadow-md scale-102 ring-2 ring-[#006B4F]/20' 
                     : 'border-emerald-900/10 bg-white hover:border-emerald-300 hover:shadow-sm'
                 }`}
               >
-                <div className="w-16 h-16 rounded-full overflow-hidden mb-2.5 bg-slate-50 p-1">
+                <div className="w-16 h-16 rounded-full overflow-hidden mb-2 bg-slate-50 p-1 border border-slate-100">
                   <img src={c.image} alt={c.label} className="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-300" />
                 </div>
                 <span className="text-xs font-bold text-slate-800 line-clamp-1 font-heading">{c.label}</span>
-                <span className="text-[10px] text-[#006B4F] font-semibold mt-1 flex items-center">
-                  Shop ➔
+                <span className="text-[10px] text-slate-400 font-medium">({count} items)</span>
+                <span className={`text-[10px] font-bold mt-1 flex items-center ${isSelected ? 'text-[#006B4F]' : 'text-slate-500'}`}>
+                  {isSelected ? 'Active ✓' : 'Shop ➔'}
                 </span>
               </button>
             );
@@ -281,10 +328,8 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                   Wholesome cat kibble, wet pouches, litter supplies, and grooming brushes.
                 </p>
                 <button
-                  onClick={() => {
-                    setSelectedCategory('cat-feed');
-                    setSelectedPet('cat');
-                  }}
+                  type="button"
+                  onClick={() => handleSelectCategory('cat-feed')}
                   className="mt-2 inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#006B4F] text-white text-xs font-bold hover:bg-[#00543E] transition-all shadow-sm cursor-pointer"
                 >
                   <span>Shop Cat Supplies</span>
@@ -314,9 +359,8 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                   Veterinary multivitamins, calcium chews, and premium dog foods for robust energy.
                 </p>
                 <button
-                  onClick={() => {
-                    setSelectedCategory('supplements');
-                  }}
+                  type="button"
+                  onClick={() => handleSelectCategory('supplements')}
                   className="mt-2 inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#006B4F] text-white text-xs font-bold hover:bg-[#00523C] transition-all shadow-sm cursor-pointer"
                 >
                   <span>Explore Supplements</span>
@@ -335,11 +379,11 @@ export const ShopPage: React.FC<ShopPageProps> = ({
       </section>
 
       {/* 5. FEATURED PRODUCTS (WITH SEARCH, CATEGORY, PET, SORT, GRID/LIST VIEW) */}
-      <section id="products-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="products-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-28">
         
         {/* Controls Bar */}
         <RevealOnScroll direction="up" duration={0.4}>
-          <div className="bg-white p-4.5 rounded-2xl border border-emerald-900/10 shadow-xs mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="bg-white p-4.5 rounded-2xl border border-emerald-900/10 shadow-xs mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <PawDecor size={18} opacity={1} color="#006B4F" />
               <h2 className="text-lg font-bold text-slate-900 font-heading">Featured Products</h2>
@@ -350,7 +394,11 @@ export const ShopPage: React.FC<ShopPageProps> = ({
               {/* Category filter */}
               <select
                 value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
+                onChange={(e) => {
+                  setSelectedCategory(e.target.value);
+                  setSearchQuery('');
+                  setSelectedPet('all');
+                }}
                 className="px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white font-medium focus:outline-none focus:border-[#006B4F]"
               >
                 <option value="all">All Categories</option>
@@ -361,7 +409,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                 <option value="grooming">Pet Grooming</option>
                 <option value="supplements">Supplements</option>
                 <option value="toys">Toys</option>
-                <option value="bowls">Bowls</option>
+                <option value="bowls">Bowls & Feeders</option>
               </select>
 
               {/* Pet filter */}
@@ -390,6 +438,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
               {/* View Mode */}
               <div className="flex items-center border border-slate-200 rounded-xl overflow-hidden p-0.5 bg-slate-50">
                 <button
+                  type="button"
                   onClick={() => setViewMode('grid')}
                   className={`p-1.5 rounded-lg transition-colors cursor-pointer ${viewMode === 'grid' ? 'bg-[#006B4F] text-white shadow-xs' : 'text-slate-500 hover:text-slate-800'}`}
                   aria-label="Grid view"
@@ -397,6 +446,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                   <Grid className="w-4 h-4" />
                 </button>
                 <button
+                  type="button"
                   onClick={() => setViewMode('list')}
                   className={`p-1.5 rounded-lg transition-colors cursor-pointer ${viewMode === 'list' ? 'bg-[#006B4F] text-white shadow-xs' : 'text-slate-500 hover:text-slate-800'}`}
                   aria-label="List view"
@@ -407,6 +457,67 @@ export const ShopPage: React.FC<ShopPageProps> = ({
             </div>
           </div>
         </RevealOnScroll>
+
+        {/* Active Filters Notification Bar */}
+        {(selectedCategory !== 'all' || selectedPet !== 'all' || searchQuery.trim() !== '') && (
+          <div className="mb-6 p-3.5 bg-emerald-50/90 border border-emerald-200 rounded-2xl flex flex-wrap items-center justify-between gap-3 text-xs shadow-2xs">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="font-semibold text-emerald-950">Active Filters:</span>
+              {selectedCategory !== 'all' && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white text-[#006B4F] font-bold rounded-full border border-emerald-300 shadow-2xs">
+                  Category: {categories.find(c => c.id === selectedCategory)?.label || selectedCategory}
+                  <button 
+                    type="button"
+                    onClick={() => setSelectedCategory('all')} 
+                    className="hover:text-red-500 font-bold ml-1 text-sm leading-none cursor-pointer"
+                    aria-label="Remove category filter"
+                  >
+                    ×
+                  </button>
+                </span>
+              )}
+              {selectedPet !== 'all' && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white text-[#006B4F] font-bold rounded-full border border-emerald-300 shadow-2xs">
+                  Pet: {selectedPet === 'dog' ? 'Dogs' : 'Cats'}
+                  <button 
+                    type="button"
+                    onClick={() => setSelectedPet('all')} 
+                    className="hover:text-red-500 font-bold ml-1 text-sm leading-none cursor-pointer"
+                    aria-label="Remove pet filter"
+                  >
+                    ×
+                  </button>
+                </span>
+              )}
+              {searchQuery.trim() !== '' && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white text-[#006B4F] font-bold rounded-full border border-emerald-300 shadow-2xs">
+                  Search: "{searchQuery}"
+                  <button 
+                    type="button"
+                    onClick={() => setSearchQuery('')} 
+                    className="hover:text-red-500 font-bold ml-1 text-sm leading-none cursor-pointer"
+                    aria-label="Clear search"
+                  >
+                    ×
+                  </button>
+                </span>
+              )}
+              <span className="text-slate-500 font-medium">({filtered.length} products found)</span>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedCategory('all');
+                setSelectedPet('all');
+                setSearchQuery('');
+              }}
+              className="text-xs font-bold text-[#006B4F] hover:underline cursor-pointer"
+            >
+              Clear All Filters
+            </button>
+          </div>
+        )}
 
         {/* Products Grid or List */}
         {filtered.length === 0 ? (
@@ -603,11 +714,8 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                   <h3 className="text-lg font-bold text-slate-900 font-heading">Popular Cat Products</h3>
                 </div>
                 <button
-                  onClick={() => {
-                    setSelectedCategory('cat-feed');
-                    const el = document.getElementById('products-section');
-                    el?.scrollIntoView({ behavior: 'smooth' });
-                  }}
+                  type="button"
+                  onClick={() => handleSelectCategory('cat-feed')}
                   className="text-xs font-bold text-[#006B4F] hover:underline cursor-pointer"
                 >
                   View All ➔
@@ -661,10 +769,13 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                   <h3 className="text-lg font-bold text-slate-900 font-heading">Top Selling Products</h3>
                 </div>
                 <button
+                  type="button"
                   onClick={() => {
+                    setSelectedCategory('all');
+                    setSelectedPet('all');
+                    setSearchQuery('');
                     setSortBy('rating');
-                    const el = document.getElementById('products-section');
-                    el?.scrollIntoView({ behavior: 'smooth' });
+                    scrollToProducts();
                   }}
                   className="text-xs font-bold text-[#006B4F] hover:underline cursor-pointer"
                 >
