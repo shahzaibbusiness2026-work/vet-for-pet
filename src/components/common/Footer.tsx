@@ -184,7 +184,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-3">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-3 text-center sm:text-left">
           <p>© 2026 Vet for Pet Clinic. All Rights Reserved.</p>
           <p className="flex items-center gap-1 font-medium text-gray-600">
             Designed with <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500 inline" /> for <span className="text-[#006B4F] font-bold">Happy Pets</span>.

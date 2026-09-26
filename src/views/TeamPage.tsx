@@ -195,7 +195,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({
       {/* 3. CERTIFICATIONS & STANDARDS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <RevealOnScroll direction="up" duration={0.5}>
-          <div className="bg-gradient-to-r from-[#EAF6F0] via-subtle-cream to-[#F0FAF5] rounded-3xl p-7 sm:p-12 border border-emerald-200/80 shadow-md">
+          <div className="bg-gradient-to-r from-[#EAF6F0] via-subtle-cream to-[#F0FAF5] rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-12 border border-emerald-200/80 shadow-md">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               
               <div className="lg:col-span-8 space-y-5 text-left">
@@ -245,7 +245,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({
       {/* 4. FEATURED VETERINARIAN SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <RevealOnScroll direction="up" duration={0.5}>
-          <div className="bg-[#004230] text-white rounded-3xl p-7 sm:p-12 shadow-2xl relative overflow-hidden border border-emerald-500/20">
+          <div className="bg-[#004230] text-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-12 shadow-2xl relative overflow-hidden border border-emerald-500/20">
             <PawDecor className="absolute bottom-2 right-4" size={100} opacity={0.06} color="#FFFFFF" rotate={-25} />
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">

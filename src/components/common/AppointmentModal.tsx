@@ -80,11 +80,11 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
         className="fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity" 
       />
 
-      <div className="flex min-h-full items-center justify-center p-4">
-        <div className="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-emerald-100">
+      <div className="flex min-h-full items-center justify-center p-2.5 sm:p-4">
+        <div className="relative w-full max-w-xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden border border-emerald-100">
           
           {/* Header Banner */}
-          <div className="bg-[#006B4F] text-white p-6 relative">
+          <div className="bg-[#006B4F] text-white p-4 sm:p-6 relative">
             <button
               onClick={handleReset}
               className="absolute top-5 right-5 text-white/80 hover:text-white p-1 rounded-full hover:bg-white/10"
@@ -103,7 +103,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
           </div>
 
           {/* Form Content */}
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             {submitted ? (
               <div className="text-center py-8 space-y-4">
                 <div className="w-16 h-16 bg-[#EBF8F3] text-[#006B4F] rounded-full flex items-center justify-center mx-auto">

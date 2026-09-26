@@ -59,10 +59,10 @@ function ShellInner({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-subtle-cream text-slate-800 relative selection:bg-[#006B4F]/15 selection:text-emerald-950">
+    <div className="min-h-screen flex flex-col bg-subtle-cream text-slate-800 relative selection:bg-[#006B4F]/15 selection:text-emerald-950 overflow-x-hidden max-w-full w-full">
       <ScrollProgressBar />
       <Header />
-      <main className="flex-1 relative">
+      <main className="flex-1 relative overflow-x-hidden max-w-full w-full">
         <AnimatePresence mode="wait">
           <motion.div
             key={pathname}

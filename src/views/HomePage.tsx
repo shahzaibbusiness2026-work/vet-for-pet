@@ -147,10 +147,10 @@ export const HomePage: React.FC<HomePageProps> = ({
 
               {/* Dual Action Buttons */}
               <RevealOnScroll direction="up" duration={0.5} delay={0.25}>
-                <div className="flex flex-wrap items-center gap-4 pt-3">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-3 w-full sm:w-auto">
                   <button
                     onClick={openAppointmentModal}
-                    className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-[#006B4F] hover:bg-[#00523C] text-white font-bold text-base shadow-xl shadow-[#006B4F]/25 hover:shadow-2xl hover:scale-105 transition-all duration-200 active:scale-95 cursor-pointer border border-emerald-400/30"
+                    className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#006B4F] hover:bg-[#00523C] text-white font-bold text-sm sm:text-base shadow-xl shadow-[#006B4F]/25 hover:shadow-2xl hover:scale-105 transition-all duration-200 active:scale-95 cursor-pointer border border-emerald-400/30"
                   >
                     <Calendar className="w-5 h-5 text-emerald-200" />
                     <span>Book an Appointment</span>
@@ -159,7 +159,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                   <a
                     href={`tel:${clinicInfo.phone}`}
-                    className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-white hover:bg-emerald-50 text-[#006B4F] font-bold text-base border-2 border-emerald-600/30 hover:border-[#006B4F] shadow-sm hover:shadow-md transition-all duration-200 active:scale-95"
+                    className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full bg-white hover:bg-emerald-50 text-[#006B4F] font-bold text-sm sm:text-base border-2 border-emerald-600/30 hover:border-[#006B4F] shadow-sm hover:shadow-md transition-all duration-200 active:scale-95"
                   >
                     <Phone className="w-4 h-4 fill-[#006B4F]" />
                     <span>{clinicInfo.phone}</span>
@@ -291,29 +291,29 @@ export const HomePage: React.FC<HomePageProps> = ({
 
             {/* Stats row: 268+ Happy Clients, 5.0 Clinic Rating, 7+ Years of Trusted Care */}
             <RevealOnScroll direction="up" duration={0.45} delay={0.15}>
-              <div className="grid grid-cols-3 gap-3 sm:gap-6 pt-2">
-                <div className="bg-white p-5 rounded-2xl border border-emerald-900/10 shadow-sm text-left hover:border-emerald-300 transition-colors">
-                  <div className="flex items-center gap-2 text-[#006B4F] mb-1.5">
-                    <Users className="w-5 h-5" />
-                    <span className="text-2xl sm:text-3xl font-black font-heading tabular-nums text-emerald-950">{clinicInfo.clientsCount}</span>
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 lg:gap-6 pt-2">
+                <div className="bg-white p-2.5 sm:p-4 lg:p-5 rounded-xl sm:rounded-2xl border border-emerald-900/10 shadow-sm text-left hover:border-emerald-300 transition-colors min-w-0">
+                  <div className="flex items-center gap-1.5 sm:gap-2 text-[#006B4F] mb-1 sm:mb-1.5">
+                    <Users className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+                    <span className="text-lg sm:text-2xl lg:text-3xl font-black font-heading tabular-nums text-emerald-950 truncate">{clinicInfo.clientsCount}</span>
                   </div>
-                  <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Happy Clients</p>
+                  <p className="text-[10px] sm:text-xs text-slate-500 font-bold uppercase tracking-wider truncate">Happy Clients</p>
                 </div>
 
-                <div className="bg-white p-5 rounded-2xl border border-emerald-900/10 shadow-sm text-left hover:border-emerald-300 transition-colors">
-                  <div className="flex items-center gap-2 text-amber-500 mb-1.5">
-                    <Star className="w-5 h-5 fill-amber-400" />
-                    <span className="text-2xl sm:text-3xl font-black font-heading tabular-nums text-emerald-950">{clinicInfo.rating}</span>
+                <div className="bg-white p-2.5 sm:p-4 lg:p-5 rounded-xl sm:rounded-2xl border border-emerald-900/10 shadow-sm text-left hover:border-emerald-300 transition-colors min-w-0">
+                  <div className="flex items-center gap-1.5 sm:gap-2 text-amber-500 mb-1 sm:mb-1.5">
+                    <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-amber-400 shrink-0" />
+                    <span className="text-lg sm:text-2xl lg:text-3xl font-black font-heading tabular-nums text-emerald-950 truncate">{clinicInfo.rating}</span>
                   </div>
-                  <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Clinic Rating</p>
+                  <p className="text-[10px] sm:text-xs text-slate-500 font-bold uppercase tracking-wider truncate">Clinic Rating</p>
                 </div>
 
-                <div className="bg-white p-5 rounded-2xl border border-emerald-900/10 shadow-sm text-left hover:border-emerald-300 transition-colors">
-                  <div className="flex items-center gap-2 text-red-500 mb-1.5">
-                    <Heart className="w-5 h-5 fill-red-500" />
-                    <span className="text-2xl sm:text-3xl font-black font-heading tabular-nums text-emerald-950">{clinicInfo.yearsCount}</span>
+                <div className="bg-white p-2.5 sm:p-4 lg:p-5 rounded-xl sm:rounded-2xl border border-emerald-900/10 shadow-sm text-left hover:border-emerald-300 transition-colors min-w-0">
+                  <div className="flex items-center gap-1.5 sm:gap-2 text-red-500 mb-1 sm:mb-1.5">
+                    <Heart className="w-4 h-4 sm:w-5 sm:h-5 fill-red-500 shrink-0" />
+                    <span className="text-lg sm:text-2xl lg:text-3xl font-black font-heading tabular-nums text-emerald-950 truncate">{clinicInfo.yearsCount}</span>
                   </div>
-                  <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Trusted Years</p>
+                  <p className="text-[10px] sm:text-xs text-slate-500 font-bold uppercase tracking-wider truncate">Trusted Years</p>
                 </div>
               </div>
             </RevealOnScroll>
@@ -528,13 +528,13 @@ export const HomePage: React.FC<HomePageProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             
             {/* Happy Patients Slider (6 cols) */}
-            <div className="lg:col-span-6 bg-white p-7 rounded-3xl border border-emerald-900/10 shadow-md space-y-5">
+            <div className="lg:col-span-6 bg-white p-4 sm:p-7 rounded-2xl sm:rounded-3xl border border-emerald-900/10 shadow-md space-y-4 sm:space-y-5">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-2 sm:gap-2.5">
                   <PawDecor size={22} opacity={1} color="#006B4F" />
                   <div>
-                    <h3 className="text-xl font-bold text-emerald-950 font-heading">Our Happy Patients</h3>
-                    <p className="text-xs text-slate-600">Real pets. Real stories. Healthy lives.</p>
+                    <h3 className="text-lg sm:text-xl font-bold text-emerald-950 font-heading">Our Happy Patients</h3>
+                    <p className="text-[11px] sm:text-xs text-slate-600">Real pets. Real stories. Healthy lives.</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-1.5">
@@ -556,7 +556,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
 
               {/* Horizontal pet photos strip */}
-              <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 pt-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 pt-2">
                 {happyPatients.slice(patientCarouselIdx, patientCarouselIdx + 4).map((p, i) => (
                   <div key={i} className="group relative rounded-2xl overflow-hidden aspect-square border border-emerald-100 shadow-xs">
                     <img
@@ -564,7 +564,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                       alt={p.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-2.5">
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-2 sm:p-2.5">
                       <span className="text-white text-xs font-bold">{p.name}</span>
                       <span className="text-emerald-300 text-[10px]">{p.type}</span>
                     </div>
@@ -584,7 +584,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
 
             {/* What Pet Owners Say (6 cols) */}
-            <div className="lg:col-span-6 bg-white p-7 rounded-3xl border border-emerald-900/10 shadow-md space-y-5 flex flex-col justify-between">
+            <div className="lg:col-span-6 bg-white p-4 sm:p-7 rounded-2xl sm:rounded-3xl border border-emerald-900/10 shadow-md space-y-4 sm:space-y-5 flex flex-col justify-between">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <PawDecor size={22} opacity={1} color="#006B4F" />

@@ -101,10 +101,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({
               </RevealOnScroll>
 
               <RevealOnScroll direction="up" duration={0.5} delay={0.2}>
-                <div className="flex flex-wrap items-center gap-4 pt-2">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2 w-full sm:w-auto">
                   <button
                     onClick={openAppointmentModal}
-                    className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#006B4F] hover:bg-[#00523C] text-white font-bold text-base shadow-xl hover:shadow-2xl hover:scale-105 transition-all active:scale-95 cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#006B4F] hover:bg-[#00523C] text-white font-bold text-sm sm:text-base shadow-xl hover:shadow-2xl hover:scale-105 transition-all active:scale-95 cursor-pointer"
                   >
                     <Calendar className="w-5 h-5 text-emerald-200" />
                     <span>Book an Appointment</span>
@@ -113,7 +113,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
 
                   <a
                     href={`tel:${clinicInfo.phone}`}
-                    className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white hover:bg-emerald-50 text-[#006B4F] font-bold text-base border-2 border-emerald-600/30 shadow-xs transition-all active:scale-95"
+                    className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full bg-white hover:bg-emerald-50 text-[#006B4F] font-bold text-sm sm:text-base border-2 border-emerald-600/30 shadow-xs transition-all active:scale-95"
                   >
                     <Phone className="w-4 h-4 fill-[#006B4F]" />
                     <span>{clinicInfo.phone}</span>
@@ -255,15 +255,15 @@ export const AboutPage: React.FC<AboutPageProps> = ({
       <section className="bg-gradient-to-r from-[#EAF6F0] via-subtle-cream to-[#EAF6F0] py-12 border-y border-emerald-900/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <RevealOnScroll direction="up" duration={0.45}>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 text-center">
               
               <div className="space-y-1">
-                <div className="flex items-center justify-center gap-2 text-[#006B4F]">
-                  <Users className="w-6 h-6" />
-                  <span className="text-3xl sm:text-4xl lg:text-5xl font-black font-heading tabular-nums text-emerald-950">{clinicInfo.clientsCount}</span>
+                <div className="flex items-center justify-center gap-1.5 sm:gap-2 text-[#006B4F]">
+                  <Users className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />
+                  <span className="text-2xl sm:text-4xl lg:text-5xl font-black font-heading tabular-nums text-emerald-950">{clinicInfo.clientsCount}</span>
                 </div>
-                <h4 className="text-sm sm:text-base font-bold text-emerald-950">Happy Clients</h4>
-                <p className="text-xs text-slate-600">Real families. Cherished companion pets.</p>
+                <h4 className="text-xs sm:text-base font-bold text-emerald-950">Happy Clients</h4>
+                <p className="text-[10px] sm:text-xs text-slate-600">Real families. Cherished pets.</p>
               </div>
 
               <div className="space-y-1">
@@ -397,7 +397,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
       {/* 7. FOUNDER SECTION: DR. AHMAD RAZA */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <RevealOnScroll direction="up" duration={0.5}>
-          <div className="bg-gradient-to-r from-[#EAF6F0] via-subtle-cream-warm to-[#F0FAF5] rounded-3xl p-7 sm:p-12 border border-emerald-200/80 shadow-md">
+          <div className="bg-gradient-to-r from-[#EAF6F0] via-subtle-cream-warm to-[#F0FAF5] rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-12 border border-emerald-200/80 shadow-md">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               
               <div className="lg:col-span-5 relative">

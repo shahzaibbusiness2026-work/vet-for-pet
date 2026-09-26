@@ -128,26 +128,26 @@ export const AppointmentPage: React.FC<AppointmentPageProps> = ({ setCurrentPage
 
               {/* Trust highlights */}
               <RevealOnScroll direction="up" duration={0.5} delay={0.15}>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 text-xs">
-                  <div className="bg-white/90 p-4 rounded-2xl border border-emerald-100 shadow-xs hover:border-emerald-300 transition-colors">
-                    <Calendar className="w-5 h-5 text-[#006B4F] mb-1.5" />
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 pt-2 text-xs">
+                  <div className="bg-white/90 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-emerald-100 shadow-xs hover:border-emerald-300 transition-colors">
+                    <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-[#006B4F] mb-1 sm:mb-1.5" />
                     <p className="font-bold text-emerald-950 font-heading">Easy Booking</p>
-                    <p className="text-slate-500 text-[11px]">Schedule in 2 mins</p>
+                    <p className="text-slate-500 text-[10px] sm:text-[11px]">Schedule in 2 mins</p>
                   </div>
-                  <div className="bg-white/90 p-4 rounded-2xl border border-emerald-100 shadow-xs hover:border-emerald-300 transition-colors">
-                    <ShieldCheck className="w-5 h-5 text-[#006B4F] mb-1.5" />
+                  <div className="bg-white/90 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-emerald-100 shadow-xs hover:border-emerald-300 transition-colors">
+                    <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#006B4F] mb-1 sm:mb-1.5" />
                     <p className="font-bold text-emerald-950 font-heading">Qualified Vets</p>
-                    <p className="text-slate-500 text-[11px]">Surgery & medicine</p>
+                    <p className="text-slate-500 text-[10px] sm:text-[11px]">Surgery & medicine</p>
                   </div>
-                  <div className="bg-white/90 p-4 rounded-2xl border border-emerald-100 shadow-xs hover:border-emerald-300 transition-colors">
-                    <PawDecor size={20} opacity={1} color="#006B4F" className="mb-1.5" />
+                  <div className="bg-white/90 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-emerald-100 shadow-xs hover:border-emerald-300 transition-colors">
+                    <PawDecor size={18} opacity={1} color="#006B4F" className="mb-1 sm:mb-1.5" />
                     <p className="font-bold text-emerald-950 font-heading">268+ Patients</p>
-                    <p className="text-slate-500 text-[11px]">Loved in Sahiwal</p>
+                    <p className="text-slate-500 text-[10px] sm:text-[11px]">Loved in Sahiwal</p>
                   </div>
-                  <div className="bg-white/90 p-4 rounded-2xl border border-emerald-100 shadow-xs hover:border-emerald-300 transition-colors">
-                    <Heart className="w-5 h-5 text-red-500 fill-red-500 mb-1.5" />
+                  <div className="bg-white/90 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-emerald-100 shadow-xs hover:border-emerald-300 transition-colors">
+                    <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-red-500 fill-red-500 mb-1 sm:mb-1.5" />
                     <p className="font-bold text-emerald-950 font-heading">Compassionate</p>
-                    <p className="text-slate-500 text-[11px]">Gentle handling</p>
+                    <p className="text-slate-500 text-[10px] sm:text-[11px]">Gentle handling</p>
                   </div>
                 </div>
               </RevealOnScroll>
@@ -182,7 +182,7 @@ export const AppointmentPage: React.FC<AppointmentPageProps> = ({ setCurrentPage
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           
           {/* Left Column: Form (7 cols) */}
-          <div className="lg:col-span-7 bg-white p-7 sm:p-10 rounded-3xl border border-emerald-900/10 shadow-sm text-left">
+          <div className="lg:col-span-7 bg-white p-4 sm:p-7 lg:p-10 rounded-2xl sm:rounded-3xl border border-emerald-900/10 shadow-sm text-left">
             <div className="flex items-center gap-3.5 pb-5 border-b border-slate-100 mb-6">
               <div className="w-12 h-12 rounded-2xl bg-[#EAF7F1] text-[#006B4F] flex items-center justify-center">
                 <Calendar className="w-6 h-6" />
@@ -565,14 +565,14 @@ export const AppointmentPage: React.FC<AppointmentPageProps> = ({ setCurrentPage
       {/* 5. "YOUR PET'S HEALTH CAN'T WAIT" BANNER */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <RevealOnScroll direction="up" duration={0.45}>
-          <div className="bg-[#004230] text-white rounded-3xl p-7 sm:p-10 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 border border-emerald-500/20">
-            <div className="flex items-center gap-5 text-left">
-              <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center shrink-0 shadow-inner">
-                <Calendar className="w-7 h-7 text-emerald-200" />
+          <div className="bg-[#004230] text-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-emerald-500/20">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5 text-left w-full md:w-auto min-w-0">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/20 flex items-center justify-center shrink-0 shadow-inner">
+                <Calendar className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-200" />
               </div>
-              <div>
-                <h3 className="text-2xl sm:text-3xl font-extrabold font-heading text-white">Your Pet’s Health Can’t Wait</h3>
-                <p className="text-sm text-emerald-100/90 mt-1 leading-relaxed max-w-xl">
+              <div className="min-w-0 flex-1">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold font-heading text-white break-words">Your Pet’s Health Can’t Wait</h3>
+                <p className="text-xs sm:text-sm text-emerald-100/90 mt-1 leading-relaxed max-w-xl">
                   Book an appointment today and let our experienced veterinary team care for your companion with devotion.
                 </p>
               </div>
@@ -580,7 +580,7 @@ export const AppointmentPage: React.FC<AppointmentPageProps> = ({ setCurrentPage
 
             <a
               href={`tel:${CLINIC_INFO.phone}`}
-              className="px-8 py-4 rounded-full bg-white text-[#006B4F] font-bold text-base shadow-xl hover:bg-emerald-50 hover:scale-105 transition-all shrink-0"
+              className="w-full sm:w-auto text-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-white text-[#006B4F] font-bold text-sm sm:text-base shadow-xl hover:bg-emerald-50 hover:scale-105 transition-all shrink-0"
             >
               Call {CLINIC_INFO.phone}
             </a>

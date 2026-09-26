@@ -98,10 +98,10 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
               </RevealOnScroll>
 
               <RevealOnScroll direction="up" duration={0.5} delay={0.15}>
-                <div className="flex flex-wrap items-center gap-4 pt-2">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2 w-full sm:w-auto">
                   <button
                     onClick={openAppointmentModal}
-                    className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#006B4F] hover:bg-[#00523C] text-white font-bold text-base shadow-xl hover:shadow-2xl hover:scale-105 transition-all active:scale-95 cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#006B4F] hover:bg-[#00523C] text-white font-bold text-sm sm:text-base shadow-xl hover:shadow-2xl hover:scale-105 transition-all active:scale-95 cursor-pointer w-full sm:w-auto"
                   >
                     <Calendar className="w-5 h-5 text-emerald-200" />
                     <span>Book an Appointment</span>
@@ -110,7 +110,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
 
                   <a
                     href={`tel:${clinicInfo.phone}`}
-                    className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white hover:bg-subtle-cream text-[#006B4F] font-bold text-base border-2 border-emerald-600/30 shadow-xs transition-all active:scale-95"
+                    className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full bg-white hover:bg-subtle-cream text-[#006B4F] font-bold text-sm sm:text-base border-2 border-emerald-600/30 shadow-xs transition-all active:scale-95 w-full sm:w-auto"
                   >
                     <Phone className="w-4 h-4 fill-[#006B4F]" />
                     <span>{clinicInfo.phone}</span>
@@ -281,8 +281,8 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
       {/* 5. CONSULTATION & SERVICE INFORMATION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <RevealOnScroll direction="up" duration={0.5}>
-          <div className="bg-gradient-to-r from-[#EAF6F0] via-subtle-cream to-[#F0FAF5] rounded-3xl p-7 sm:p-10 border border-emerald-200 shadow-sm">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="bg-gradient-to-r from-[#EAF6F0] via-subtle-cream to-[#F0FAF5] rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 border border-emerald-200 shadow-sm">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-center">
               
               <div className="lg:col-span-5 relative">
                 <div className="rounded-2xl overflow-hidden shadow-xl aspect-4/3 group">
@@ -334,33 +334,33 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
       {/* 6. PET EMERGENCY BANNER */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <RevealOnScroll direction="up" duration={0.45}>
-          <div className="bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white rounded-3xl p-7 sm:p-10 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 border border-red-400/30">
-            <div className="flex items-center gap-5 text-left">
-              <div className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center shrink-0 shadow-inner">
-                <AlertTriangle className="w-8 h-8 text-white animate-bounce" />
+          <div className="bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 border border-red-400/30">
+            <div className="flex items-center gap-4 sm:gap-5 text-left w-full md:w-auto">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/20 flex items-center justify-center shrink-0 shadow-inner">
+                <AlertTriangle className="w-6 h-6 sm:w-8 sm:h-8 text-white animate-bounce" />
               </div>
-              <div>
-                <span className="text-xs font-extrabold uppercase tracking-widest text-red-100 bg-red-800/40 px-3 py-1 rounded-full inline-block mb-1">
+              <div className="min-w-0 flex-1">
+                <span className="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-red-100 bg-red-800/40 px-2.5 sm:px-3 py-1 rounded-full inline-block mb-1">
                   PET EMERGENCY? WE'RE HERE FOR YOU
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-extrabold font-heading text-white">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold font-heading text-white">
                   Urgent Care When Your Pet Needs It Most
                 </h3>
-                <p className="text-sm text-red-100/90 mt-1 leading-relaxed max-w-xl">
+                <p className="text-xs sm:text-sm text-red-100/90 mt-1 leading-relaxed max-w-xl">
                   Prompt clinical attention for acute injuries, accidental toxicity, severe vomiting, breathing distress or sudden illness.
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 shrink-0">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 shrink-0 w-full md:w-auto">
               <a
                 href={`tel:${clinicInfo.phone}`}
-                className="inline-flex items-center gap-2.5 px-7 py-4 rounded-full bg-white text-red-600 font-black text-base shadow-xl hover:bg-red-50 hover:scale-105 transition-all"
+                className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full bg-white text-red-600 font-black text-sm sm:text-base shadow-xl hover:bg-red-50 hover:scale-105 transition-all w-full sm:w-auto"
               >
                 <Phone className="w-5 h-5 fill-red-600" />
                 <span>{clinicInfo.phone}</span>
               </a>
-              <div className="flex items-center gap-1.5 text-xs font-bold text-white/90">
+              <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-white/90">
                 <Clock className="w-4 h-4" />
                 <span>Open 7 Days a Week</span>
               </div>

@@ -153,7 +153,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           
           {/* Left: Contact Form (7 cols) */}
-          <div className="lg:col-span-7 bg-white p-7 sm:p-10 rounded-3xl border border-emerald-900/10 shadow-sm space-y-6 text-left">
+          <div className="lg:col-span-7 bg-white p-4 sm:p-7 lg:p-10 rounded-2xl sm:rounded-3xl border border-emerald-900/10 shadow-sm space-y-5 sm:space-y-6 text-left">
             <RevealOnScroll direction="up" duration={0.4}>
               <div className="flex items-center gap-2.5 text-[#006B4F]">
                 <MessageCircle className="w-6 h-6 text-[#006B4F]" />
@@ -282,16 +282,16 @@ export const ContactPage: React.FC<ContactPageProps> = ({
           <div className="lg:col-span-5 space-y-4 text-left">
             <RevealOnScroll direction="left" duration={0.4}>
               {/* Call Us Now Card */}
-              <div className="bg-gradient-to-r from-[#00523C] to-[#006B4F] text-white p-7 rounded-3xl shadow-xl relative overflow-hidden border border-emerald-500/20">
+              <div className="bg-gradient-to-r from-[#00523C] to-[#006B4F] text-white p-5 sm:p-7 rounded-2xl sm:rounded-3xl shadow-xl relative overflow-hidden border border-emerald-500/20">
                 <PawDecor className="absolute bottom-2 right-2" size={80} opacity={0.08} color="#FFFFFF" rotate={-20} />
                 
                 <div className="flex items-center gap-3.5 mb-2">
-                  <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-white shadow-inner">
+                  <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-white shadow-inner shrink-0">
                     <Phone className="w-6 h-6 fill-white" />
                   </div>
-                  <div>
-                    <span className="text-xs uppercase tracking-wider text-emerald-300 font-bold">Call Us Directly</span>
-                    <p className="text-2xl sm:text-3xl font-black font-heading tracking-tight">{clinicInfo.phone}</p>
+                  <div className="min-w-0">
+                    <span className="text-xs uppercase tracking-wider text-emerald-300 font-bold block">Call Us Directly</span>
+                    <p className="text-xl sm:text-3xl font-black font-heading tracking-tight truncate">{clinicInfo.phone}</p>
                   </div>
                 </div>
                 <p className="text-xs sm:text-sm text-emerald-100/90 mt-2">
@@ -301,32 +301,32 @@ export const ContactPage: React.FC<ContactPageProps> = ({
             </RevealOnScroll>
 
             {/* Quick Action Buttons */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
               <a
                 href={`https://wa.me/${clinicInfo.whatsapp}?text=Hello%20${encodeURIComponent(clinicInfo.name)}`}
                 target="_blank"
                 rel="noreferrer"
-                className="p-4 bg-[#EAF7F1] hover:bg-[#D5EFE3] border border-emerald-200/80 rounded-2xl flex items-center gap-3 text-xs font-bold text-[#006B4F] transition-all shadow-xs"
+                className="p-3 sm:p-4 bg-[#EAF7F1] hover:bg-[#D5EFE3] border border-emerald-200/80 rounded-xl sm:rounded-2xl flex items-center gap-3 text-xs font-bold text-[#006B4F] transition-all shadow-xs min-w-0"
               >
-                <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center shadow-xs">
+                <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center shadow-xs shrink-0">
                   <MessageCircle className="w-5 h-5 text-[#25D366] fill-[#25D366]" />
                 </div>
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-sm font-heading font-bold text-slate-900 leading-tight">WhatsApp</p>
-                  <span className="text-[11px] text-slate-500 font-normal">Immediate reply</span>
+                  <span className="text-[11px] text-slate-500 font-normal truncate block">Immediate reply</span>
                 </div>
               </a>
 
               <button
                 onClick={openAppointmentModal}
-                className="p-4 bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl flex items-center gap-3 text-xs font-bold text-slate-800 transition-all shadow-xs cursor-pointer"
+                className="p-3 sm:p-4 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl sm:rounded-2xl flex items-center gap-3 text-xs font-bold text-slate-800 transition-all shadow-xs cursor-pointer min-w-0"
               >
-                <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center shadow-xs">
+                <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center shadow-xs shrink-0">
                   <Calendar className="w-5 h-5 text-[#006B4F]" />
                 </div>
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-sm font-heading font-bold text-slate-900 leading-tight">Book Visit</p>
-                  <span className="text-[11px] text-slate-500 font-normal">Online booking</span>
+                  <span className="text-[11px] text-slate-500 font-normal truncate block">Online booking</span>
                 </div>
               </button>
             </div>

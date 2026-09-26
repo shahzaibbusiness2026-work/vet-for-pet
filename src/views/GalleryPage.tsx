@@ -142,7 +142,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
       {/* 2. FILTER TABS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
         <RevealOnScroll direction="up" duration={0.4}>
-          <div className="flex items-center justify-start sm:justify-center gap-2.5 overflow-x-auto pb-2 no-scrollbar p-1.5 bg-white/80 backdrop-blur-md rounded-full max-w-fit mx-auto border border-emerald-900/10 shadow-sm">
+          <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-2.5 overflow-x-auto pb-2 no-scrollbar p-1.5 bg-white/80 backdrop-blur-md rounded-full max-w-full sm:max-w-fit mx-auto border border-emerald-900/10 shadow-sm px-2">
             {filters.map((f) => {
               const isActive = activeFilter === f.id;
               return (
@@ -224,7 +224,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
       {/* 4. FEATURED VIDEO SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <RevealOnScroll direction="up" duration={0.5}>
-          <div className="bg-gradient-to-r from-[#EAF6F0] via-white to-[#F0FAF5] rounded-3xl p-7 sm:p-12 border border-emerald-200 shadow-md">
+          <div className="bg-gradient-to-r from-[#EAF6F0] via-white to-[#F0FAF5] rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-12 border border-emerald-200 shadow-md">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               
               {/* Video Preview Card */}

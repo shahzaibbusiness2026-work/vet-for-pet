@@ -234,23 +234,23 @@ export const Header: React.FC = () => {
               <Link
                 href="/profile"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-emerald-50/90 to-teal-50/50 hover:bg-emerald-100/60 border border-emerald-200/90 text-left transition-all cursor-pointer shadow-xs active:scale-[0.99]"
+                className="w-full flex items-center justify-between p-3 sm:p-3.5 rounded-2xl bg-gradient-to-r from-emerald-50/90 to-teal-50/50 hover:bg-emerald-100/60 border border-emerald-200/90 text-left transition-all cursor-pointer shadow-xs active:scale-[0.99] gap-2"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-[#006B4F] to-[#0E8F63] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm ring-2 ring-white">
-                    <User className="w-5 h-5" />
+                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-[#006B4F] to-[#0E8F63] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm ring-2 ring-white">
+                    <User className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <p className="text-xs font-extrabold text-slate-900 font-heading">My Account & Purchases</p>
-                      <span className="px-1.5 py-0.5 rounded-md bg-[#006B4F] text-white text-[9px] font-bold uppercase tracking-wider">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                      <p className="text-xs font-extrabold text-slate-900 font-heading truncate">My Account & Purchases</p>
+                      <span className="px-1.5 py-0.5 rounded-md bg-[#006B4F] text-white text-[9px] font-bold uppercase tracking-wider shrink-0">
                         Gold
                       </span>
                     </div>
-                    <p className="text-[11px] text-slate-600 mt-0.5">Track orders, recent purchases & pets</p>
+                    <p className="text-[10px] sm:text-[11px] text-slate-600 mt-0.5 truncate">Track orders, recent purchases & pets</p>
                   </div>
                 </div>
-                <span className="text-xs font-bold text-white bg-[#006B4F] hover:bg-[#00543E] px-3 py-1.5 rounded-xl shadow-xs shrink-0">
+                <span className="text-xs font-bold text-white bg-[#006B4F] hover:bg-[#00543E] px-2.5 sm:px-3 py-1.5 rounded-xl shadow-xs shrink-0">
                   Profile
                 </span>
               </Link>
@@ -261,32 +261,32 @@ export const Header: React.FC = () => {
                   setMobileMenuOpen(false);
                   openCart();
                 }}
-                className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-white hover:bg-emerald-50/50 border border-emerald-900/10 text-left transition-all cursor-pointer shadow-xs active:scale-[0.99]"
+                className="w-full flex items-center justify-between p-3 sm:p-3.5 rounded-2xl bg-white hover:bg-emerald-50/50 border border-emerald-900/10 text-left transition-all cursor-pointer shadow-xs active:scale-[0.99] gap-2"
               >
-                <div className="flex items-center gap-3">
-                  <div className="relative w-11 h-11 rounded-2xl bg-[#EAF7F1] text-[#006B4F] flex items-center justify-center shrink-0 border border-emerald-200 shadow-2xs">
-                    <ShoppingBag className="w-5 h-5 text-[#006B4F]" />
+                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+                  <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#EAF7F1] text-[#006B4F] flex items-center justify-center shrink-0 border border-emerald-200 shadow-2xs">
+                    <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-[#006B4F]" />
                     {totalCartCount > 0 && (
-                      <span className="absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-[11px] font-black flex items-center justify-center shadow-xs">
+                      <span className="absolute -top-1.5 -right-1.5 min-w-[18px] sm:min-w-[20px] h-4.5 sm:h-5 px-1 rounded-full bg-red-500 text-white text-[10px] sm:text-[11px] font-black flex items-center justify-center shadow-xs">
                         {totalCartCount}
                       </span>
                     )}
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <p className="text-xs font-extrabold text-emerald-950 font-heading">Shopping Cart</p>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                      <p className="text-xs font-extrabold text-emerald-950 font-heading truncate">Shopping Cart</p>
                       {totalCartCount > 0 && (
-                        <span className="px-2 py-0.5 rounded-full bg-red-100 text-red-700 text-[10px] font-extrabold">
+                        <span className="px-1.5 sm:px-2 py-0.5 rounded-full bg-red-100 text-red-700 text-[9px] sm:text-[10px] font-extrabold shrink-0">
                           {totalCartCount} {totalCartCount === 1 ? 'item' : 'items'}
                         </span>
                       )}
                     </div>
-                    <p className="text-[11px] text-slate-500 mt-0.5">
+                    <p className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5 truncate">
                       {totalCartCount > 0 ? 'Review items & proceed to checkout' : 'Your cart is currently empty'}
                     </p>
                   </div>
                 </div>
-                <span className={`text-xs font-bold px-3 py-1.5 rounded-xl border transition-colors shrink-0 ${
+                <span className={`text-xs font-bold px-2.5 sm:px-3 py-1.5 rounded-xl border transition-colors shrink-0 ${
                   totalCartCount > 0 
                     ? 'bg-[#006B4F] text-white border-[#006B4F] shadow-xs' 
                     : 'bg-slate-100 text-slate-600 border-slate-200'
@@ -300,18 +300,18 @@ export const Header: React.FC = () => {
                 href={`https://wa.me/${clinicInfo.whatsapp}?text=Hello%20${encodeURIComponent(clinicInfo.name)}`}
                 target="_blank" 
                 rel="noreferrer"
-                className="flex items-center justify-between p-3 rounded-2xl bg-emerald-50/60 hover:bg-emerald-100/50 border border-emerald-100 text-left transition-colors"
+                className="flex items-center justify-between p-3 rounded-2xl bg-emerald-50/60 hover:bg-emerald-100/50 border border-emerald-100 text-left transition-colors gap-2"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
                   <div className="w-9 h-9 rounded-xl bg-[#25D366]/15 flex items-center justify-center shrink-0">
                     <MessageCircle className="w-5 h-5 text-[#25D366]" />
                   </div>
-                  <div>
-                    <p className="text-xs font-bold text-slate-800">WhatsApp Chat</p>
-                    <p className="text-[11px] text-slate-500">Fast doctor chat & prescription help</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-bold text-slate-800 truncate">WhatsApp Chat</p>
+                    <p className="text-[10px] sm:text-[11px] text-slate-500 truncate">Fast doctor chat & prescription help</p>
                   </div>
                 </div>
-                <span className="text-xs font-bold text-[#128C7E] bg-white px-2.5 py-1 rounded-lg border border-emerald-200 shadow-2xs">
+                <span className="text-xs font-bold text-[#128C7E] bg-white px-2.5 py-1 rounded-lg border border-emerald-200 shadow-2xs shrink-0">
                   Chat
                 </span>
               </a>
